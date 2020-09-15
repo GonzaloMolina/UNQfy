@@ -15,6 +15,7 @@ class UNQfy {
   // retorna: el nuevo artista creado
   addArtist(artistData) {
     const artist = new Artist(artistData.name, artistData.country);
+    this.artists.push(artist);
     return artist;
   /* Crea un artista y lo agrega a unqfy.
   El objeto artista creado debe soportar (al menos):
@@ -29,7 +30,8 @@ class UNQfy {
   //   albumData.year (number)
   // retorna: el nuevo album creado
   addAlbum(artistId, albumData) {
-    //this.artists.filter(artist => artist.id == artistId).setAlbum(albumData);
+    const album = this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
+    return album;
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos):
      - una propiedad name (string)
