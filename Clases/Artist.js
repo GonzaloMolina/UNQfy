@@ -21,8 +21,9 @@ class Artist {
     }
 
     /**METHODS */
+
     getAlbumById(id) {
-        return this.albums.filter(album => album.getId() == id);
+        return this.albums.find(album => album.getId() == id);
     }
 
 }

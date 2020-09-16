@@ -7,5 +7,8 @@ class Track {
         this.duration = duration;
         this.genres = genres;
     }
-    
+
 }
+
+
+module.exports = Track;
