@@ -3,7 +3,7 @@ const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
 
-class UNQfy {
+class UnQify {
 
   constructor(){
     this.artists = [];
@@ -105,13 +105,13 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy];
+    const classes = [UnQify];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
 module.exports = {
-  UNQfy: UNQfy,
+  UnQify: UnQify,
 };
 

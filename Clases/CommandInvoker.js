@@ -3,7 +3,7 @@ const {AddArtistCommand,
     AddTrackCommand,
     DeleteArtistCommand,
     DeleteAlbumCommand,
-    DeleteTrackCommand,} = require('./Commands')
+    DeleteTrackCommand,} = require('./Commands');
 
 class CommandInvoker {
     constructor() {
