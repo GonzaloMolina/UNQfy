@@ -123,6 +123,14 @@ class UnQify {
     artistWithAlbum.deleteAlbum(id);
   }
 
+  deleteTrack(id) {
+    this.artists.forEach(artist => artist.searchTrackAndDelete(id));
+  }
+
+  deletePlaylist(id) {
+    this.playlists.find(playlis => playlist.getId(id) !== id );
+  }
+
   save(filename) {
     const serializedData = picklify.picklify(this);
     fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));

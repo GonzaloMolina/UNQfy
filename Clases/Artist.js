@@ -17,6 +17,14 @@ class Artist {
     getAlbums() {
         return this.albums;
     }
+    
+    getAlbumById(id) {
+        return this.albums.find(album => album.getId() == id);
+    }
+
+    getAlbums(){
+        return this.albums
+    }
 
     /**SETTERS */
     setAlbum(name, year){
@@ -37,15 +45,10 @@ class Artist {
         return this.albums.filter(album => album.getId() !== albumToDelete.getId());
     }
 
-}
-
-    getAlbumById(id) {
-        return this.albums.find(album => album.getId() == id);
+    searchTrackAndDelete(id) {
+        this.albums.forEach(album => album.deleteTrack(id));
     }
 
-    getAlbums(){
-        return this.albums
-    }
 
 }
 

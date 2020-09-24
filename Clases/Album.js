@@ -25,6 +25,10 @@ class Album {
     delete(){
         this.tracks = [];
     }
+
+    deleteTrack(id){
+        this.tracks.filter(track => track.getId() !== id);
+    }
 }
 
 module.exports = Album; //Export Album
