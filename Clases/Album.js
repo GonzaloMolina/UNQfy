@@ -5,11 +5,17 @@ class Album {
         this.id = Counter.getAlbumId;
         this.name = name;
         this.year = year;
+        this.tracks = [];
     }
 
     /**GETTERS */
     getId(){
         return this.getId;
+    }
+
+    /**METHODS */
+    delete(){
+        this.tracks = [];
     }
 }
 

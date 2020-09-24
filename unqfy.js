@@ -55,7 +55,7 @@ class UnQify {
   }
 
   getArtistById(id) {
-
+    
   }
 
   getAlbumById(id) {
@@ -95,6 +95,18 @@ class UnQify {
       * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
   */
 
+  }
+
+  deleteArtist(id) {
+    const artistToDelete = this.getArtistById(id);
+    artistToDelete.delete();
+
+    this.artists = this.artists.filter(artist => artist.getId() !== artistToDelete.getId());
+  }
+
+  deleteAlbum(id) {
+    const artistWithAlbum = this.artists.find(artist => artist.getAlbumById = this.getAlbumById(id));
+    artistWithAlbum.deleteAlbum(id);
   }
 
   save(filename) {
