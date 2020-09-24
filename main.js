@@ -1,19 +1,20 @@
 
 
-const fs = require('fs'); // necesitado para guardar/cargar unqfy
-const unqmod = require('./unqfy'); // importamos el modulo unqfy
+const fs = require('fs'); // necesitado para guardar/cargar unQify
+const unqmod = require('./unQify'); // importamos el modulo unQify
+const CommandInvoker = require('./Command/CommandInvoker'); // importo invoker
 
-// Retorna una instancia de UNQfy. Si existe filename, recupera la instancia desde el archivo.
-function getUNQfy(filename = 'data.json') {
-  let unqfy = new unqmod.UNQfy();
+// Retorna una instancia de unQify. Si existe filename, recupera la instancia desde el archivo.
+function getUnQify(filename = 'data.json') {
+  let unQify = new unqmod.UnQify();
   if (fs.existsSync(filename)) {
-    unqfy = unqmod.UNQfy.load(filename);
+    unQify = unqmod.unQify.load(filename);
   }
-  return unqfy;
+  return unQify;
 }
 
-function saveUNQfy(unqfy, filename = 'data.json') {
-  unqfy.save(filename);
+function saveUnQify(unQify, filename = 'data.json') {
+  unQify.save(filename);
 }
 
 /*
@@ -40,15 +41,31 @@ function saveUNQfy(unqfy, filename = 'data.json') {
 
   La implementacion de los comandos deberá ser de la forma:
    1. Obtener argumentos de linea de comando
-   2. Obtener instancia de UNQfy (getUNQFy)
-   3. Ejecutar el comando correspondiente en Unqfy
-   4. Guardar el estado de UNQfy (saveUNQfy)
+   2. Obtener instancia de unQify (getunQify)
+   3. Ejecutar el comando correspondiente en unQify
+   4. Guardar el estado de unQify (saveunQify)
 
 */
 
 function main() {
-  console.log('arguments: ');
-  process.argv.forEach(argument => console.log(argument));
+  
+  const unQify = getUnQify();
+
+  const nameFunction = process.argv[2];
+  const args = process.argv.splice(3);
+
+  const operation = new CommandInvoker();
+
+  try {
+    const command = operation.get(nameFunction);
+        console.log(command);
+        command.invoke(args, unQify);
+        console.log(nameFunction);
+        saveunQify(unQify);
+
+  } catch (error){
+    console.log(error);
+  }
 }
 
 main();

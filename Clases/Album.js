@@ -20,6 +20,11 @@ class Album {
         this.tracks.push(track);
         return track;
     }
+
+    /**METHODS */
+    delete(){
+        this.tracks = [];
+    }
 }
 
 module.exports = Album; //Export Album

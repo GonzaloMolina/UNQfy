@@ -13,6 +13,11 @@ class Artist {
     getId() {
         return this.id;
     }
+
+    getAlbums() {
+        return this.albums;
+    }
+
     /**SETTERS */
     setAlbum(name, year){
         var album = new Album(name, year);
@@ -21,11 +26,18 @@ class Artist {
     }
 
     /**METHODS */
-
-    existsAlbum(id){
-        var album = this.albums.find(album => album.getId() == id)
-        return this.albums.includes(album)
+    delete() {
+       this.albums.delete();
+       this.albums = [];
     }
+
+    deleteAlbum(id) {
+        albumToDelete = this.getAlbumById(id);
+        albumToDelete.delete();
+        return this.albums.filter(album => album.getId() !== albumToDelete.getId());
+    }
+
+}
 
     getAlbumById(id) {
         return this.albums.find(album => album.getId() == id);

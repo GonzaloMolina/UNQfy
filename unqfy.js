@@ -3,7 +3,7 @@ const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
 
-class UNQfy {
+class UnQify {
 
   constructor(){
     this.artists = [];
@@ -101,6 +101,18 @@ class UNQfy {
 
   }
 
+  deleteArtist(id) {
+    const artistToDelete = this.getArtistById(id);
+    artistToDelete.delete();
+
+    this.artists = this.artists.filter(artist => artist.getId() !== artistToDelete.getId());
+  }
+
+  deleteAlbum(id) {
+    const artistWithAlbum = this.artists.find(artist => artist.getAlbumById = this.getAlbumById(id));
+    artistWithAlbum.deleteAlbum(id);
+  }
+
   save(filename) {
     const serializedData = picklify.picklify(this);
     fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));
@@ -109,13 +121,13 @@ class UNQfy {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UNQfy];
+    const classes = [UnQify];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
 module.exports = {
-  UNQfy: UNQfy,
+  UnQify: UnQify,
 };
 
