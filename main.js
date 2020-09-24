@@ -2,6 +2,7 @@
 
 const fs = require('fs'); // necesitado para guardar/cargar unqfy
 const unqmod = require('./unqfy'); // importamos el modulo unqfy
+const CommandInvoker = require('./Clases/CommandInvoker'); // importo invoker
 
 // Retorna una instancia de UNQfy. Si existe filename, recupera la instancia desde el archivo.
 function getUNQfy(filename = 'data.json') {
@@ -47,8 +48,24 @@ function saveUNQfy(unqfy, filename = 'data.json') {
 */
 
 function main() {
-  console.log('arguments: ');
-  process.argv.forEach(argument => console.log(argument));
+  
+  const unqFy = getUNQfy();
+
+  const nameFunction = process.argv[2];
+  const args = process.argv.splice(3);
+
+  const operation = new CommandInvoker();
+
+  try {
+    const command = operation.get(nameFunction);
+        console.log(command);
+        command.invoke(args, unQfy);
+        console.log(nameFunction);
+        saveUNQfy(unqFy);
+
+  } catch (error){
+    console.log(error);
+  }
 }
 
 main();

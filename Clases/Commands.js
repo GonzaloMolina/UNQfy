@@ -52,6 +52,7 @@ class DeleteArtistCommand {
     invoke(args, unqfy) {
         const idArtist = Number(args[0]);
         console.log(unqfy.deleteArtist(idArtist));
+        console.log('The artist was deleted correctly.');
     }
 }
 
@@ -59,6 +60,7 @@ class DeleteAlbumCommand {
     invoke(args, unqfy) {
         const idAlbum = Number(args[0]);
         console.log(unqfy.deleteAlbum(idAlbum));
+        console.log('The album was deleted correctly.');
     }
 }
 
@@ -66,6 +68,7 @@ class DeleteTrackCommand {
     invoke(args, unqfy) {
         const idTrack = Number(args[0]);
         console.log(unqfy.deleteTrack(idTrack));
+        console.log('The track was deleted correctly.');
     }
 }
 

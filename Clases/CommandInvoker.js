@@ -22,3 +22,5 @@ class CommandInvoker {
         return this.commands[key];
     }
 }
+
+module.exports = CommandInvoker;
