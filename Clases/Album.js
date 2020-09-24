@@ -1,5 +1,5 @@
 const Counter = require('./Counter'); //Import Counter
-const Track = require('./Track'); //Import Track
+const Track = require('./Track').default; //Import Track
 
 class Album {
     constructor(name, year){

@@ -27,4 +27,4 @@ class Counter {
     }
 }
 
-module.exports = {Counter, getArtistId, getAlbumId, getTrackId};
+module.exports = Counter
