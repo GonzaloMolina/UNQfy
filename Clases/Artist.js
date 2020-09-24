@@ -1,9 +1,9 @@
-const Counter = require('./Counter'); //Import Counter
+var counter = require('./Counter'); //Import Counter
 const Album = require('./Album'); //Import Album
 
 class Artist {
     constructor(name, country){
-        this.id = Counter.getArtistId();
+        this.id = counter.getArtistId();
         this.name = name;
         this.country = country;
         this.albums = [];
@@ -22,13 +22,19 @@ class Artist {
 
     /**METHODS */
 
+    existsAlbum(id){
+        var album = this.albums.find(album => album.getId() == id)
+        return this.albums.includes(album)
+    }
+
     getAlbumById(id) {
         return this.albums.find(album => album.getId() == id);
     }
 
+    getAlbums(){
+        return this.albums
+    }
+
 }
-
-
-
 
 module.exports = Artist

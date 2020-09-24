@@ -61,7 +61,9 @@ class UNQfy {
   }
 
   getAlbumById(id) {
-    return this.artists.find(artist => artist.getAlbumById(id));
+    var artista = this.artists.find(artist => artist.existsAlbum(id));
+    var album = artista.getAlbumById(id)
+    return album
   }
 
   getTrackById(id) {

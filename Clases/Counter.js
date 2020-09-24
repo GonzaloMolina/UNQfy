@@ -1,5 +1,3 @@
-
-
 class Counter {
     constructor() {
         this.idArtists = 0;
@@ -25,6 +23,9 @@ class Counter {
         this.idTracks ++; 
         return trackId; 
     }
+    
 }
 
-module.exports = Counter
+var counter = new Counter();
+
+module.exports = counter
