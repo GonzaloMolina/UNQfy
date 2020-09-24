@@ -2,12 +2,13 @@
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
+const Playlist = require('./Clases/Playlist')
 
 class UnQify {
 
   constructor(){
     this.artists = [];
-    //this.playlists = playslists;
+    this.playlists = [];
   }
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -56,6 +57,22 @@ class UnQify {
     return album.setTrack(trackData.name, trackData.duration, trackData.genres);
   }
 
+  createPlaylist(name, genresToInclude, maxDuration) {
+    /*** Crea una playlist y la agrega a unqfy. ***
+      El objeto playlist creado debe soportar (al menos):
+        * una propiedad name (string)
+        * un metodo duration() que retorne la duración de la playlist.
+        * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
+    */
+     // name: nombre de la playlist
+     // genresToInclude: array de generos
+     // maxDuration: duración en segundos
+     // retorna: la nueva playlist creada
+      const playlist = new Playlist(name, genresToInclude, maxDuration)
+      this.playlists.push(playlist)
+      return playlist
+    }
+
   getArtistById(id) {
     return this.artists.find(artist => artist.getId() == id);
   }
@@ -86,19 +103,12 @@ class UnQify {
 
   }
 
-
-  // name: nombre de la playlist
-  // genresToInclude: array de generos
-  // maxDuration: duración en segundos
-  // retorna: la nueva playlist creada
-  createPlaylist(name, genresToInclude, maxDuration) {
-  /*** Crea una playlist y la agrega a unqfy. ***
-    El objeto playlist creado debe soportar (al menos):
-      * una propiedad name (string)
-      * un metodo duration() que retorne la duración de la playlist.
-      * un metodo hasTrack(aTrack) que retorna true si aTrack se encuentra en la playlist.
-  */
-
+  searchByName(name) {
+    const artists = this.artists.filter(artist => artist.name.includes(name));
+    const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.includes(name)));
+    const tracks = this.artists.flatMap(artist => artist.albums.flatMap(album => album.tracks.filter(track => track.name.includes(name))));
+    const playlists = this.playlists.filter(playlist => playlist.name.includes(name));
+    return { artists, albums, tracks, playlists };
   }
 
   deleteArtist(id) {

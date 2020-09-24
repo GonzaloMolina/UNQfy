@@ -3,6 +3,7 @@ class Counter {
         this.idArtists = 0;
         this.idAlbums = 0;
         this.idTracks = 0;
+        this.idPlaylists = 0;
     }
 
     /**METHODS */
@@ -22,6 +23,12 @@ class Counter {
         var trackId = this.idTracks;
         this.idTracks ++; 
         return trackId; 
+    }
+
+    getPlaylistId(){
+        var playlistId = this.idPlaylists;
+        this.idPlaylists ++
+        return playlistId
     }
     
 }
