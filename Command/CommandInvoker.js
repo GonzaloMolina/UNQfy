@@ -1,9 +1,11 @@
-const {AddArtistCommand,
-    AddAlbumCommand,
-    AddTrackCommand,
-    DeleteArtistCommand,
-    DeleteAlbumCommand,
-    DeleteTrackCommand,} = require('./Commands');
+
+const {AddArtistCommand} = require('./AddArtistCommand');
+const {AddAlbumCommand} = require('./AddAlbumCommand');
+const {AddTrackCommand} = require('./AddTrackCommand');
+const {CreatePlaylistCommand} = require('./CreatePlaylistCommand');
+const {DeleteArtistCommand} = require('./DeleteArtistCommand');
+const {DeleteAlbumCommand} = require('./DeleteAlbumCommand');
+const {DeleteTrackCommand} = require('./DeleteTrackCommand');
 
 class CommandInvoker {
     constructor() {

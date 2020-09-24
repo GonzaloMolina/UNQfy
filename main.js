@@ -2,7 +2,7 @@
 
 const fs = require('fs'); // necesitado para guardar/cargar unQify
 const unqmod = require('./unQify'); // importamos el modulo unQify
-const CommandInvoker = require('./Clases/CommandInvoker'); // importo invoker
+const CommandInvoker = require('./Command/CommandInvoker'); // importo invoker
 
 // Retorna una instancia de unQify. Si existe filename, recupera la instancia desde el archivo.
 function getUnQify(filename = 'data.json') {
