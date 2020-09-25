@@ -8,6 +8,11 @@ class Track {
         this.genres = genres;
     }
 
+    /**GETTERS */
+    getId() {
+        this.id;
+    }
+
 }
 
 module.exports = Track;

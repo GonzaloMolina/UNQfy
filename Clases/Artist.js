@@ -22,8 +22,12 @@ class Artist {
         return this.albums.find(album => album.getId() == id);
     }
 
-    getAlbums(){
-        return this.albums
+    getAlbums() {
+        return this.albums;
+    }
+
+    getTracks() {
+        return this.albums.flatMap(album => album.getTracks());
     }
 
     /**SETTERS */
@@ -42,7 +46,7 @@ class Artist {
     deleteAlbum(id) {
         albumToDelete = this.getAlbumById(id);
         albumToDelete.delete();
-        return this.albums.filter(album => album.getId() !== albumToDelete.getId());
+        this.albums.filter(album => album.getId() !== albumToDelete.getId());
     }
 
     searchTrackAndDelete(id) {

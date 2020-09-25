@@ -8,6 +8,17 @@ class Playlist{
         this.genres = genres
         this.maxDuration = maxDuration
     }
+
+    /**GETTERS */
+
+    /**SETTERS */
+    setTrackList(TrackList) {
+        this.tracks = TrackList;
+    }
+    /**METHODS*/
+    deleteTrack(id) {
+        this.tracks.filter(track => track.getId() !== id);
+    }
 }
 
 module.exports = Playlist
