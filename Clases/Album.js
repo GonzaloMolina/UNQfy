@@ -14,7 +14,11 @@ class Album {
         return this.id;
     }
 
-    /**METHODS */
+    getTracks() {
+        return this.tracks.map(track => track.getId());
+    }
+
+    /**SETTERS */
     setTrack(name, duration, genres) {
         const track = new Track(name, duration, genres);
         this.tracks.push(track);
@@ -24,6 +28,10 @@ class Album {
     /**METHODS */
     delete(){
         this.tracks = [];
+    }
+
+    deleteTrack(id){
+        this.tracks.filter(track => track.getId() !== id);
     }
 }
 

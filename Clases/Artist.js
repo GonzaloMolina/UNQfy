@@ -17,6 +17,18 @@ class Artist {
     getAlbums() {
         return this.albums;
     }
+    
+    getAlbumById(id) {
+        return this.albums.find(album => album.getId() == id);
+    }
+
+    getAlbums() {
+        return this.albums;
+    }
+
+    getTracks() {
+        return this.albums.flatMap(album => album.getTracks());
+    }
 
     /**SETTERS */
     setAlbum(name, year){
@@ -34,18 +46,13 @@ class Artist {
     deleteAlbum(id) {
         albumToDelete = this.getAlbumById(id);
         albumToDelete.delete();
-        return this.albums.filter(album => album.getId() !== albumToDelete.getId());
+        this.albums.filter(album => album.getId() !== albumToDelete.getId());
     }
 
-}
-
-    getAlbumById(id) {
-        return this.albums.find(album => album.getId() == id);
+    searchTrackAndDelete(id) {
+        this.albums.forEach(album => album.deleteTrack(id));
     }
 
-    getAlbums(){
-        return this.albums
-    }
 
 }
 

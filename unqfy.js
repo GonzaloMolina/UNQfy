@@ -2,7 +2,14 @@
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
-const Playlist = require('./Clases/Playlist')
+const Playlist = require('./Clases/Playlist');
+const {ErrorDoesntExistsAlbum,
+      ErrorDoesntExistsArtsit,
+      ErrorDoesntExistsTrack,
+      ErrorInsufficientParameters,
+      ErrorRepeatAlbum,
+      ErrorRepeatArtist,
+      ErrorRepeatTrack,} = require('./Errors');
 
 class UnQify {
 
@@ -15,6 +22,16 @@ class UnQify {
   //   artistData.country (string)
   // retorna: el nuevo artista creado
   addArtist(artistData) {
+    if (!artistData.name || !artistData.country) {
+      throw new ErrorInsufficientParameters();
+    }
+
+    const check = this.artists.find(artist => artist.name === artistData.name);
+
+    if(check) {
+      throw new ErrorRepeatArtist();
+    }
+
     const artist = new Artist(artistData.name, artistData.country);
     this.artists.push(artist);
     return artist;
@@ -31,10 +48,26 @@ class UnQify {
   //   albumData.year (number)
   // retorna: el nuevo album creado
   addAlbum(artistId, albumData) {
-    const album = this.getArtistById(artistId);//this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
-    return album.setAlbum(albumData.name, albumData.year);
+    if (artistId === undefined || !name || !year) {
+      throw new ErrorInsufficientParameters();
+    }
+
+    const checkArtist = this.getArtistById(artistId);
+
+    if(!checkArtist) {
+      throw new ErrorDoesntExistsArtsit();
+    }
+
+    const checkAlbum = this.getAllAlbums().find(album => album.name == name);
+
+    if(checkAlbum) {
+      throw new ErrorRepeatAlbum();
+    }
+
+    const artist = this.getArtistById(artistId);//this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
+    return artist.setAlbum(albumData.name, albumData.year);
   /* Crea un album y lo agrega al artista con id artistId.
-    El objeto album creado debe tener (al menos):
+    El objeto album creado debe tener (al menos)):
      - una propiedad name (string)
      - una propiedad year (number)
   */
@@ -53,6 +86,22 @@ class UnQify {
       - una propiedad duration (number),
       - una propiedad genres (lista de strings)
   */
+    if(albumId === undefined || !name || !duration || !genres) {
+      throw new ErrorInsufficientParameters();
+    }
+
+    const checkAlbum = this.getAlbumById(albumId);
+
+    if(!checkAlbum) {
+      throw new ErrorDoesntExistsAlbum();
+    }
+
+    const checkTrack = flatMap(this.getAllAlbums(), album => album.getTracks()).find(track => track.name === name);
+
+    if(checkTrack) {
+      throw new ErrorRepeatTrack();
+    }
+
     const album = this.getAlbumById(albumId);
     return album.setTrack(trackData.name, trackData.duration, trackData.genres);
   }
@@ -103,6 +152,10 @@ class UnQify {
 
   }
 
+  getAllAlbums() {
+    return flatMap(this.artists, artist => artist.getAlbums());
+  }
+
   searchByName(name) {
     const artists = this.artists.filter(artist => artist.name.includes(name));
     const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.includes(name)));
@@ -113,6 +166,9 @@ class UnQify {
 
   deleteArtist(id) {
     const artistToDelete = this.getArtistById(id);
+    const tracks = artistToDelete.getTracks();
+    
+    tracks.map(id => this.deleteTrackInPlaylist(id));
     artistToDelete.delete();
 
     this.artists = this.artists.filter(artist => artist.getId() !== artistToDelete.getId());
@@ -120,7 +176,25 @@ class UnQify {
 
   deleteAlbum(id) {
     const artistWithAlbum = this.artists.find(artist => artist.getAlbumById = this.getAlbumById(id));
+    const album = this.getAlbumById(id);
+    const tacks = album.getTracks();
+
+    tracks.map(id => this.deleteTrackInPlaylist(id));
+
     artistWithAlbum.deleteAlbum(id);
+  }
+
+  deleteTrack(id) {
+    this.deleteTrackInPlaylist(id);
+    this.artists.forEach(artist => artist.searchTrackAndDelete(id));
+  }
+
+  deletePlaylist(id) {
+    this.playlists.filter(playlis => playlist.getId(id) !== id);
+  }
+
+  deleteTrackInPlaylist(id) {
+    this.playlists.map(playlist => playlist.deleteTrack(id));
   }
 
   save(filename) {
