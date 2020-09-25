@@ -10,14 +10,23 @@ class Playlist{
     }
 
     /**GETTERS */
+    duration(){
+        return this.maxDuration
+    }
 
     /**SETTERS */
     setTrackList(TrackList) {
         this.tracks = TrackList;
     }
+
     /**METHODS*/
     deleteTrack(id) {
         this.tracks.filter(track => track.getId() !== id);
+    }
+
+    hasTrack(trackToFind){
+        var track = this.tracks.filter(theTrack => theTrack.id == trackToFind.id)[0]
+        return trackToFind.id == track.id
     }
 }
 

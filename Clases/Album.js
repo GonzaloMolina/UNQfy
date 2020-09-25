@@ -15,7 +15,7 @@ class Album {
     }
 
     getTracks() {
-        return this.tracks.map(track => track.getId());
+        return this.tracks;
     }
 
     /**SETTERS */

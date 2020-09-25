@@ -14,16 +14,16 @@ class Artist {
         return this.id;
     }
 
+    getName(){
+        return this.name
+    }
+
     getAlbums() {
-        return this.albums;
+        return this.albums
     }
     
     getAlbumById(id) {
         return this.albums.find(album => album.getId() == id);
-    }
-
-    getAlbums() {
-        return this.albums;
     }
 
     getTracks() {
@@ -51,6 +51,11 @@ class Artist {
 
     searchTrackAndDelete(id) {
         this.albums.forEach(album => album.deleteTrack(id));
+    }
+
+    existsAlbum(id){
+        var album = this.albums.find(album => album.getId() == id);
+        return this.albums.includes(album)
     }
 
 

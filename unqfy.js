@@ -3,13 +3,13 @@ const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
 const Playlist = require('./Clases/Playlist');
-const {ErrorDoesntExistsAlbum,
-      ErrorDoesntExistsArtsit,
-      ErrorDoesntExistsTrack,
-      ErrorInsufficientParameters,
-      ErrorRepeatAlbum,
-      ErrorRepeatArtist,
-      ErrorRepeatTrack,} = require('./Errors');
+const ErrorDoesntExistsAlbum = require('./Errors/ErrorDoesntExistsAlbum');
+const ErrorDoesntExistsArtist= require('./Errors/ErrorDoesntExistsArtist');
+const ErrorDoesntExistsTrack= require('./Errors/ErrorDoesntExistsTrack');
+const ErrorInsufficientParameters= require('./Errors/ErrorInsufficientParameters');
+const ErrorRepeatAlbum= require('./Errors/ErrorRepeatAlbum');
+const ErrorRepeatArtist= require('./Errors/ErrorRepeatArtist');
+const ErrorRepeatTrack = require('./Errors/ErrorRepeatTrack');
 
 class UnQify {
 
@@ -48,7 +48,7 @@ class UnQify {
   //   albumData.year (number)
   // retorna: el nuevo album creado
   addAlbum(artistId, albumData) {
-    if (artistId === undefined || !name || !year) {
+    if (artistId === undefined || !albumData.name || !albumData.year) {
       throw new ErrorInsufficientParameters();
     }
 
@@ -56,14 +56,13 @@ class UnQify {
 
     if(!checkArtist) {
       throw new ErrorDoesntExistsArtsit();
-    }
-
+    }/*
     const checkAlbum = this.getAllAlbums().find(album => album.name == name);
 
     if(checkAlbum) {
       throw new ErrorRepeatAlbum();
     }
-
+*/
     const artist = this.getArtistById(artistId);//this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
     return artist.setAlbum(albumData.name, albumData.year);
   /* Crea un album y lo agrega al artista con id artistId.
@@ -86,7 +85,7 @@ class UnQify {
       - una propiedad duration (number),
       - una propiedad genres (lista de strings)
   */
-    if(albumId === undefined || !name || !duration || !genres) {
+    if(albumId === undefined || !trackData.name || !trackData.duration || !trackData.genres) {
       throw new ErrorInsufficientParameters();
     }
 
@@ -95,13 +94,13 @@ class UnQify {
     if(!checkAlbum) {
       throw new ErrorDoesntExistsAlbum();
     }
-
+/*
     const checkTrack = flatMap(this.getAllAlbums(), album => album.getTracks()).find(track => track.name === name);
 
     if(checkTrack) {
       throw new ErrorRepeatTrack();
     }
-
+*/
     const album = this.getAlbumById(albumId);
     return album.setTrack(trackData.name, trackData.duration, trackData.genres);
   }
@@ -118,6 +117,8 @@ class UnQify {
      // maxDuration: duración en segundos
      // retorna: la nueva playlist creada
       const playlist = new Playlist(name, genresToInclude, maxDuration)
+      var tracks = this.getTracksMatchingGenres(genresToInclude)
+      playlist.setTrackList(tracks)
       this.playlists.push(playlist)
       return playlist
     }
@@ -143,19 +144,22 @@ class UnQify {
   // genres: array de generos(strings)
   // retorna: los tracks que contenga alguno de los generos en el parametro genres
   getTracksMatchingGenres(genres) {
-
+    const albumes = this.artists.flatMap(artist => artist.albums);
+    const tracks = albumes.flatMap(album => album.tracks);
+    const trackInGenres = tracks.filter(t => t.genres.some(g => genres.includes(g)));
+    return trackInGenres;
   }
 
   // artistName: nombre de artista(string)
   // retorna: los tracks interpredatos por el artista con nombre artistName
   getTracksMatchingArtist(artistName) {
-
+    return this.artists.filter(artist => artist.name === artistName).flatMap(artist => artist.albums.flatMap(album => album.tracks))
   }
-
+/*
   getAllAlbums() {
-    return flatMap(this.artists, artist => artist.getAlbums());
+    return this.artists.flatMap(this.artists, artist => artist.getAlbums());
   }
-
+*/
   searchByName(name) {
     const artists = this.artists.filter(artist => artist.name.includes(name));
     const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.includes(name)));
