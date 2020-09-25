@@ -1,7 +1,5 @@
-
-
 const fs = require('fs'); // necesitado para guardar/cargar unQify
-const unqmod = require('./unQify'); // importamos el modulo unQify
+const unqmod = require('./unqfy'); // importamos el modulo unQify
 const CommandInvoker = require('./Command/CommandInvoker'); // importo invoker
 
 // Retorna una instancia de unQify. Si existe filename, recupera la instancia desde el archivo.
@@ -61,7 +59,7 @@ function main() {
         console.log(command);
         command.invoke(args, unQify);
         console.log(nameFunction);
-        saveunQify(unQify);
+        saveUnQify(unQify);
 
   } catch (error){
     console.log(error);

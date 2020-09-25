@@ -117,8 +117,8 @@ class UnQify {
      // maxDuration: duración en segundos
      // retorna: la nueva playlist creada
       const playlist = new Playlist(name, genresToInclude, maxDuration)
-      var tracks = this.getTracksMatchingGenres(genresToInclude)
-      playlist.setTrackList(tracks)
+      var tracks = this.getTracksMatchingGenres(genresToInclude) 
+      playlist.setTrackList(tracks) //FALTA VERIFICAR QUE NO PASE LA DURACION
       this.playlists.push(playlist)
       return playlist
     }

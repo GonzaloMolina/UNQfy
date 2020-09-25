@@ -12,4 +12,4 @@ class AddTrackCommand {
     }
 }
 
-module.exports = {AddTrackCommand, }
+module.exports = AddTrackCommand

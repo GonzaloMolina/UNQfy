@@ -9,7 +9,8 @@ const {DeleteTrackCommand} = require('./DeleteTrackCommand');
 
 class CommandInvoker {
     constructor() {
-        this.commands = {addArtist: new AddArtistCommand(),
+        this.commands = {
+            addArtist: new AddArtistCommand(),
             addAlbum: new AddAlbumCommand(),
             addTrack: new AddTrackCommand(),
             createPlaylist: new CreatePlaylistCommand(),
