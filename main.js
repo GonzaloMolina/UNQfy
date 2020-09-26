@@ -55,7 +55,7 @@ function main() {
   const operation = new CommandInvoker();
 
   try {
-    const command = operation.get(nameFunction);
+    const command = operation.getCommand(nameFunction);
         console.log(command);
         command.invoke(args, unQify);
         console.log(nameFunction);

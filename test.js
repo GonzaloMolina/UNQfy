@@ -27,7 +27,10 @@ describe('Add, remove and filter data', () => {
 
   it('should add an artist', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+    
+    //const artist2= createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
 
+  
     assert.equal(artist.name, 'Guns n\' Roses');
     assert.equal(artist.country, 'USA');
 
@@ -37,6 +40,8 @@ describe('Add, remove and filter data', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
 
+    //const album2 = createAndAddAlbum(unqfy, artist.id, 1987);
+
     assert.equal(album.name, 'Appetite for Destruction');
     assert.equal(album.year, 1987);
   });
@@ -45,6 +50,8 @@ describe('Add, remove and filter data', () => {
     const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
     const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
     const track = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
+    
+    //const track = createAndAddTrack(unqfy, 6, 'Welcome to the jungle', 200, ['rock', 'hard rock']);
 
     assert.equal(track.name, 'Welcome to the jungle');
     assert.strictEqual(track.duration, 200);
@@ -145,4 +152,59 @@ describe('Playlist Creation and properties', () => {
     assert.isTrue(playlist.hasTrack(t4));
     assert.lengthOf(playlist.tracks, 4);
   });
+
+  describe('Track Delete', () => {
+    let unqfy = null;
+  
+    beforeEach(() => {
+      unqfy = new libunqfy.UnQify();
+    });
+  
+    it('should delete a track', () => {
+      const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+      const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+      const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+      //createAndAddTrack(unqfy, album.id, 'Sweet Child o\' Mine', 1500, ['rock', 'hard rock', 'pop', 'movie']);
+  
+      const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
+      const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
+      const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
+      const t3 = createAndAddTrack(unqfy, album2.id, 'Another song', 500, ['pop']);
+      const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
+  
+      const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 1400);
+  
+      //assert.equal(unqfy.deleteTrack(t1.getId()), playlist.getTracks().lenght === 3);
+      //unqfy.deleteTrack(t1.getId());
+      //console.log(album.getTracks())
+      //assert.isTrue(album.getTracks() === []);
+    });
+  })
+
+  describe('Search by name', () => {
+    let unqfy = null;
+  
+    beforeEach(() => {
+      unqfy = new libunqfy.UnQify();
+    });
+  
+    it('should search by name', () => {
+      const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+      const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+      const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+      //createAndAddTrack(unqfy, album.id, 'Sweet Child o\' Mine', 1500, ['rock', 'hard rock', 'pop', 'movie']);
+  
+      const artist2 = createAndAddArtist(unqfy, 'Michael Jackson', 'USA');
+      const album2 = createAndAddAlbum(unqfy, artist2.id, 'Thriller', 1987);
+      const t2 = createAndAddTrack(unqfy, album2.id, 'Thriller', 200, ['pop', 'movie']);
+      const t3 = createAndAddTrack(unqfy, album2.id, 'Another song', 500, ['pop']);
+      const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
+  
+      const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 1400);
+
+      //console.log(unqfy.searchByName('Michael').artists[0]);
+      assert.equal(unqfy.searchByName('Michael').artists[0], unqfy.getArtistById(13));
+      assert.equal(unqfy.searchByName('Appetite').albums[0], unqfy.getAlbumById(12));
+    });
+  })
 });

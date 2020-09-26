@@ -14,6 +14,10 @@ class Album {
         return this.id;
     }
 
+    getName(){
+        return this.name
+    }
+
     getTracks() {
         return this.tracks;
     }
@@ -31,7 +35,7 @@ class Album {
     }
 
     deleteTrack(id){
-        this.tracks.filter(track => track.getId() !== id);
+        this.tracks = this.tracks.filter(track => track.id !== id);
     }
 }
 

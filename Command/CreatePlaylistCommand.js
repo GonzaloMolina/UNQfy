@@ -1,5 +1,4 @@
 
-
 class CreatePlaylistCommand {
     invoke(args, unqfy) {
         const name = args[0];

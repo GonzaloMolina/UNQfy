@@ -11,4 +11,4 @@ class AddAlbumCommand {
     }
 }
 
-module.exports = {AddAlbumCommand,}
+module.exports = AddAlbumCommand

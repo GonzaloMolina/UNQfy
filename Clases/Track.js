@@ -10,7 +10,15 @@ class Track {
 
     /**GETTERS */
     getId() {
-        this.id;
+        return this.id;
+    }
+
+    getName(){
+        return this.name;
+    }
+
+    getDuration(){
+        return this.duration;
     }
 
 }
