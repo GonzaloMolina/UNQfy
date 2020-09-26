@@ -5,6 +5,9 @@ const CreatePlaylistCommand = require('./CreatePlaylistCommand');
 const DeleteArtistCommand = require('./DeleteArtistCommand');
 const DeleteAlbumCommand = require('./DeleteAlbumCommand');
 const DeleteTrackCommand = require('./DeleteTrackCommand');
+const ArtistToListCommand = require('./ArtistsToListCommand');
+const AlbumstToListCommand = require('./AlbumsToListCommand');
+const TracksToListCommand = require('./TracksToListCommand');
 
 class CommandInvoker {
     constructor() {
@@ -16,6 +19,9 @@ class CommandInvoker {
             deleteTrack: new DeleteTrackCommand(),
             deleteAlbum: new DeleteAlbumCommand(),
             deleteArtist: new DeleteArtistCommand(),
+            artistsToList: new ArtistToListCommand(),
+            albumsToList: new AlbumstToListCommand(),
+            tracksToList: new TracksToListCommand(),
         };
     }
 
