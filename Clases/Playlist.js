@@ -11,12 +11,16 @@ class Playlist{
 
     /**GETTERS */
     duration(){
-        return this.maxDuration
+        return this.maxDuration;
+    }
+
+    getTracks(){
+        return this.tracks;
     }
 
     /**SETTERS */
-    setTrackList(TrackList) {
-        this.tracks = TrackList;
+    setTrackList(trackList) {
+        this.tracks = trackList;
     }
 
     /**METHODS*/
