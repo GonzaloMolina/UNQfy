@@ -25,7 +25,7 @@ class Playlist{
 
     /**METHODS*/
     deleteTrack(id) {
-        this.tracks.filter(track => track.getId() !== id);
+        this.tracks = this.tracks.filter(track => track.getId() !== id);
     }
 
     hasTrack(trackToFind){

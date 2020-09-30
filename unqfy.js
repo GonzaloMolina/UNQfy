@@ -2,6 +2,8 @@
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
+const Album = require('./Clases/Album'); //Import Album
+const Track = require('./Clases/Track'); //Import Track
 const Playlist = require('./Clases/Playlist');
 const ErrorDoesntExistsAlbum = require('./Errors/ErrorDoesntExistsAlbum');
 const ErrorDoesntExistsArtist= require('./Errors/ErrorDoesntExistsArtist');
@@ -126,7 +128,7 @@ class UnQify {
     }
 
   getArtistById(id) {
-    return this.artists.find(artist => artist.getId() == id);
+    return this.artists.find(artist => artist.getId() === id);
   }
 
   getAlbumById(id) {
@@ -171,6 +173,10 @@ class UnQify {
     return this.artists;
   }
 
+  getAllTracks() {
+    return this.getAllAlbums().flatMap(album => album.getTracks());
+  }
+
   getTracksFromAlbum(albumId){
     var artist = this.artists.find(artist => artist.existsAlbum(albumId));
     var album = artist.getAlbumById(albumId);
@@ -196,13 +202,12 @@ class UnQify {
   }
 
   deleteAlbum(id) {
-    const artistWithAlbum = this.artists.find(artist => artist.getAlbumById = this.getAlbumById(id));
-    const album = this.getAlbumById(id);
-    const tacks = album.getTracks();
+    const artist = this.artists.find(artist => artist.getAlbumById(id));
+    const album = artist.getAlbumById(id);
+    const tracks = album.getTracks();
 
-    tracks.map(id => this.deleteTrackInPlaylist(id));
-
-    artistWithAlbum.deleteAlbum(id);
+    tracks.forEach(track => this.deleteTrackInPlaylist(track.getId()));
+    artist.deleteAlbum(id);
   }
 
   deleteTrack(id) {
@@ -215,7 +220,7 @@ class UnQify {
   }
 
   deleteTrackInPlaylist(id) {
-    this.playlists.map(playlist => playlist.deleteTrack(id));
+    this.playlists.forEach(playlist => playlist.deleteTrack(id));
   }
 
   save(filename) {
@@ -226,7 +231,7 @@ class UnQify {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UnQify];
+    const classes = [UnQify, Artist, Album, Track, Playlist];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

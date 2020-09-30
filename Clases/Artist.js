@@ -26,6 +26,10 @@ class Artist {
         return this.albums.find(album => album.getId() == id);
     }
 
+    getTrackById(id) {
+        return this.albums.find(album => album.getTrackById(id));
+    }
+
     getTracks() {
         return this.albums.flatMap(album => album.getTracks());
     }
@@ -44,9 +48,9 @@ class Artist {
     }
 
     deleteAlbum(id) {
-        albumToDelete = this.getAlbumById(id);
+        const albumToDelete = this.getAlbumById(id);
         albumToDelete.delete();
-        this.albums.filter(album => album.getId() !== albumToDelete.getId());
+        this.albums = this.albums.filter(album => album.getId() !== id);
     }
 
     searchTrackAndDelete(id) {

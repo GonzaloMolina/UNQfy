@@ -6,7 +6,7 @@ const CommandInvoker = require('./Command/CommandInvoker'); // importo invoker
 function getUnQify(filename = 'data.json') {
   let unQify = new unqmod.UnQify();
   if (fs.existsSync(filename)) {
-    unQify = unqmod.unQify.load(filename);
+    unQify = unqmod.UnQify.load(filename);
   }
   return unQify;
 }
@@ -56,9 +56,7 @@ function main() {
 
   try {
     const command = operation.getCommand(nameFunction);
-        console.log(command);
         command.invoke(args, unQify);
-        console.log(nameFunction);
         saveUnQify(unQify);
 
   } catch (error){

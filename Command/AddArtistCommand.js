@@ -2,8 +2,8 @@ class AddArtistCommand {
     
     invoke(args, unqfy) {
         const artistData = {
-            name: args[1],
-            country: args[3],
+            name: args[0],
+            country: args[1],
         };
 
         console.log(unqfy.addArtist(artistData));
