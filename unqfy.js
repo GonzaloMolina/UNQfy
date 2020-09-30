@@ -2,6 +2,8 @@
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
+const Album = require('./Clases/Album'); //Import Album
+const Track = require('./Clases/Track'); //Import Track
 const Playlist = require('./Clases/Playlist');
 const ErrorDoesntExistsAlbum = require('./Errors/ErrorDoesntExistsAlbum');
 const ErrorDoesntExistsArtist= require('./Errors/ErrorDoesntExistsArtist');

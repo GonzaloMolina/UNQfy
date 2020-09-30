@@ -2,7 +2,7 @@
 
 class AddAlbumCommand {
     invoke(args, unqfy) {
-        const artistId = Number(arg[0]);
+        const artistId = Number(args[0]);
         const albumData = {
             name: args[1],
             year: Number(args[2]),
