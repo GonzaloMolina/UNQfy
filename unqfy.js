@@ -137,8 +137,8 @@ class UnQify {
     return album
   }
 
-  addTrackToPlaylist(track, playlistId){
-    const foundTrack = this.getTrackById(track.getId())
+  addTrackToPlaylist(trackId, playlistId){
+    const foundTrack = this.getTrackById(trackId)
     this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(foundTrack)
   }
 
