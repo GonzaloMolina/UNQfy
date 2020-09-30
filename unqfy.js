@@ -138,15 +138,19 @@ class UnQify {
   }
 
   addTrackToPlaylist(track, playlistId){
-    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track)
+    const foundTrack = this.getTrackById(track.getId())
+    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(foundTrack)
   }
 
   getTrackById(id) {
-
+    var tracks = this.getAllTracks()
+    var track = tracks.find(track => track.getId() == id)
+    return track
   }
 
   getPlaylistById(id) {
-
+    var playlist = this.playlists.find(playlist => playlist.getId() == id)
+    return playlist
   }
 
   // genres: array de generos(strings)
