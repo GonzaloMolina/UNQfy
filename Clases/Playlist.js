@@ -14,6 +14,10 @@ class Playlist{
         return this.maxDuration;
     }
 
+    getId(){
+        return this.id;
+    }
+
     getTracks(){
         return this.tracks;
     }
@@ -21,6 +25,10 @@ class Playlist{
     /**SETTERS */
     setTrackList(trackList) {
         this.tracks = trackList;
+    }
+
+    addTrack(track){
+        this.tracks.push(track);
     }
 
     /**METHODS*/

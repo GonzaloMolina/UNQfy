@@ -227,7 +227,7 @@ describe('Playlist Creation and properties', () => {
       const t3 = createAndAddTrack(unqfy, album2.id, 'Another song', 500, ['pop']);
       const t4 = createAndAddTrack(unqfy, album2.id, 'Another song II', 500, ['pop']);
   
-      const playlist = unqfy.createPlaylist('my playlist', ['pop', 'rock'], 1400);
+      const playlist = unqfy.createPlaylist('my playlist', ['pop','rock'], 1400);
 
 
       //console.log(unqfy.searchByName('Michael').artists[0]);

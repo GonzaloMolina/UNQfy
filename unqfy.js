@@ -137,6 +137,10 @@ class UnQify {
     return album
   }
 
+  addTrackToPlaylist(track, playlistId){
+    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track)
+  }
+
   getTrackById(id) {
 
   }
