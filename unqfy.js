@@ -120,11 +120,11 @@ class UnQify {
      // genresToInclude: array de generos
      // maxDuration: duración en segundos
      // retorna: la nueva playlist creada
-      const playlist = new Playlist(name, genresToInclude, maxDuration)
-      var tracks = this.getTracksMatchingGenres(genresToInclude) 
-      playlist.setTrackList(tracks) //FALTA VERIFICAR QUE NO PASE LA DURACION
-      this.playlists.push(playlist)
-      return playlist
+      const playlist = new Playlist(name, genresToInclude, maxDuration);
+      var tracks = this.getTracksMatchingGenres(genresToInclude) ;
+      playlist.setTrackList(tracks); //FALTA VERIFICAR QUE NO PASE LA DURACION
+      this.playlists.push(playlist);
+      return playlist;
     }
 
   getArtistById(id) {
@@ -133,24 +133,21 @@ class UnQify {
 
   getAlbumById(id) {
     var artista = this.artists.find(artist => artist.existsAlbum(id));
-    var album = artista.getAlbumById(id)
-    return album
+    return artista.getAlbumById(id);
   }
 
   addTrackToPlaylist(trackId, playlistId){
-    const foundTrack = this.getTrackById(trackId)
-    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(foundTrack)
+    const track = this.getTrackById(trackId);
+    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track);
   }
 
   getTrackById(id) {
-    var tracks = this.getAllTracks()
-    var track = tracks.find(track => track.getId() == id)
-    return track
+    var tracks = this.getAllTracks();
+    return tracks.find(track => track.getId() == id);
   }
 
   getPlaylistById(id) {
-    var playlist = this.playlists.find(playlist => playlist.getId() == id)
-    return playlist
+    return this.playlists.find(playlist => playlist.getId() == id);
   }
 
   // genres: array de generos(strings)
@@ -158,8 +155,7 @@ class UnQify {
   getTracksMatchingGenres(genres) {
     const albumes = this.artists.flatMap(artist => artist.albums);
     const tracks = albumes.flatMap(album => album.tracks);
-    const trackInGenres = tracks.filter(t => t.genres.some(g => genres.includes(g)));
-    return trackInGenres;
+    return tracks.filter(t => t.genres.some(g => genres.includes(g)));
   }
 
   // artistName: nombre de artista(string)

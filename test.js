@@ -235,5 +235,31 @@ describe('Playlist Creation and properties', () => {
       assert.equal(unqfy.searchByName('Appetite').albums[0], unqfy.getAlbumById(album.getId()));
     });
   })
+
+  describe('Add track to playlist', () => {
+    let unqfy = null;
+  
+    beforeEach(() => {
+      unqfy = new libunqfy.UnQify();
+    });
+  
+    it('should add track x in playlist y', () => {
+      const artist = createAndAddArtist(unqfy, 'Guns n\' Roses', 'USA');
+      const album = createAndAddAlbum(unqfy, artist.id, 'Appetite for Destruction', 1987);
+      const t1 = createAndAddTrack(unqfy, album.id, 'Welcome to the jungle', 200, ['rock', 'hard rock', 'movie']);
+  
+  
+      const playlist = unqfy.createPlaylist('my playlist', ['pop','rock'], 1400);
+
+      assert.isTrue(playlist.hasTrack(t1));
+
+      const t2 = createAndAddTrack(unqfy, album.id, 'Back in Black', 200, ['rock']);
+
+      unqfy.addTrackToPlaylist(t2.getId(), playlist.getId());
+
+      assert.isTrue(playlist.hasTrack(t2));
+
+    });
+  })
 });
  
