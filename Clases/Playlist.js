@@ -23,8 +23,14 @@ class Playlist{
     }
 
     /**SETTERS */
-    setTrackList(trackList) {
-        this.tracks = trackList;
+    setTrackList(trackList) { //tracklist 3 temas 1:3min , 2: 5min, 3: 4min, maxDuration 10
+        var counter = 0;
+        for(var i=0; i<trackList.length; i++){
+            if(counter + trackList[i].getDuration() <= this.maxDuration){
+                this.tracks.push(trackList[i])
+                counter = counter + trackList[i].getDuration();
+            }
+        }
     }
 
     addTrack(track){

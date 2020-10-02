@@ -19,30 +19,29 @@
     },
     "__00004__": {
       "id": 0,
-      "name": "Hernan Cattaneo",
-      "country": "Argentina",
+      "name": "Manu",
+      "country": "1999",
       "albums": "__00007__"
     },
     "__00005__": {
-      "id": 2,
-      "name": "Metallica",
-      "country": "LosAngeles",
+      "id": 1,
+      "name": "Gonza",
+      "country": "1920",
       "albums": "__00008__"
     },
     "__00006__": {
       "id": 0,
-      "name": "miplaylist",
+      "name": "visado",
       "tracks": "__00009__",
       "genres": "__00010__",
-      "maxDuration": 2000
+      "maxDuration": 130
     },
     "__00007__": {
       "0": "__00011__"
     },
     "__00008__": {},
     "__00009__": {
-      "0": "__00012__",
-      "1": "__00013__"
+      "0": "__00012__"
     },
     "__00010__": {
       "0": "rock",
@@ -50,51 +49,31 @@
     },
     "__00011__": {
       "id": 0,
-      "name": "PEPE",
-      "year": 1997,
-      "tracks": "__00014__"
+      "name": "No tengo tiempo libre",
+      "year": 2020,
+      "tracks": "__00013__"
     },
     "__00012__": {
-      "id": 2,
-      "name": "BackInBlack",
-      "duration": 200,
-      "genres": "__00015__"
+      "id": 0,
+      "name": "OSLP",
+      "duration": 120,
+      "genres": "__00014__"
     },
     "__00013__": {
-      "id": 3,
-      "name": "Thunder",
-      "duration": 200,
-      "genres": "__00016__"
+      "0": "__00012__",
+      "1": "__00015__"
     },
     "__00014__": {
-      "0": "__00017__",
-      "1": "__00018__"
+      "0": "rock"
     },
     "__00015__": {
-      "0": "rock"
+      "id": 1,
+      "name": "Obj 2",
+      "duration": 140,
+      "genres": "__00016__"
     },
     "__00016__": {
-      "0": "rock"
-    },
-    "__00017__": {
-      "id": 0,
-      "name": "Into the edge",
-      "duration": 200,
-      "genres": "__00019__"
-    },
-    "__00018__": {
-      "id": 1,
-      "name": "Flame",
-      "duration": 100,
-      "genres": "__00020__"
-    },
-    "__00019__": {
-      "0": "progressive",
-      "1": "melodic"
-    },
-    "__00020__": {
-      "0": "progressive",
-      "1": "melodic"
+      "0": "pop"
     }
   },
   "types": {
@@ -110,13 +89,9 @@
     "__00010__": "Array",
     "__00011__": "Album",
     "__00012__": "Track",
-    "__00013__": "Track",
+    "__00013__": "Array",
     "__00014__": "Array",
-    "__00015__": "Array",
-    "__00016__": "Array",
-    "__00017__": "Track",
-    "__00018__": "Track",
-    "__00019__": "Array",
-    "__00020__": "Array"
+    "__00015__": "Track",
+    "__00016__": "Array"
   }
 }

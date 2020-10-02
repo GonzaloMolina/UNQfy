@@ -10,7 +10,10 @@ const ArtistToListCommand = require('./ArtistsToListCommand');
 const AlbumstToListCommand = require('./AlbumsToListCommand');
 const TracksToListCommand = require('./TracksToListCommand');
 const TracksFromPlaylistCommand = require('./TacksFromPlaylistCommand');
- 
+const SearchByNameCommand = require('./SearchByNameCommand');
+const TracksFromArtistCommand = require('./TracksFromArtistCommand');
+const TracksOfGenreCommand = require('./TracksOfGenreCommand')
+
 
 class CommandInvoker {
     constructor() {
@@ -27,6 +30,9 @@ class CommandInvoker {
             albumsToList: new AlbumstToListCommand(),
             tracksToList: new TracksToListCommand(),
             tracksFromPlaylist: new TracksFromPlaylistCommand(),
+            searchByName: new SearchByNameCommand(),
+            tracksFromArtist: new TracksFromArtistCommand(),
+            tracksOfGenre: new TracksOfGenreCommand(),
         };
     }
 
