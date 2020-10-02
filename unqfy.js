@@ -127,6 +127,11 @@ class UnQify {
       return playlist;
     }
 
+    addTrackToPlaylist(trackId, playlistId){
+      const track = this.getTrackById(trackId);
+      this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track);
+    }
+  
   getArtistById(id) {
     return this.artists.find(artist => artist.getId() === id);
   }
@@ -134,11 +139,6 @@ class UnQify {
   getAlbumById(id) {
     var artista = this.artists.find(artist => artist.existsAlbum(id));
     return artista.getAlbumById(id);
-  }
-
-  addTrackToPlaylist(trackId, playlistId){
-    const track = this.getTrackById(trackId);
-    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track);
   }
 
   getTrackById(id) {
@@ -168,12 +168,12 @@ class UnQify {
     return this.artists.flatMap(artist => artist.getAlbums());
   }
 
-  getAllAlbumsOfArtist(artistId){
+  getAllAlbumsOfArtist(artistId) {
     var artist = this.artists.find(artist => artist.getId() === artistId);
     return artist.getAllAlbums();
   }
 
-  getAllArtists(){
+  getAllArtists() {
     return this.artists;
   }
 
@@ -181,10 +181,15 @@ class UnQify {
     return this.getAllAlbums().flatMap(album => album.getTracks());
   }
 
-  getTracksFromAlbum(albumId){
+  getTracksFromAlbum(albumId) {
     var artist = this.artists.find(artist => artist.existsAlbum(albumId));
     var album = artist.getAlbumById(albumId);
     return album.getTracks();
+  }
+
+  getTracksFromPlaylist(playlistId) {
+    var playlist = this.getPlaylistById(playlistId);
+    return playlist.getTracks();
   }
 
   searchByName(name) {
@@ -199,7 +204,7 @@ class UnQify {
     const artistToDelete = this.getArtistById(id);
     const tracks = artistToDelete.getTracks();
     
-    tracks.map(id => this.deleteTrackInPlaylist(id));
+    tracks.forEach(track => this.deleteTrackInPlaylists(track.getId()));
     artistToDelete.delete();
 
     this.artists = this.artists.filter(artist => artist.getId() !== artistToDelete.getId());
@@ -210,12 +215,12 @@ class UnQify {
     const album = artist.getAlbumById(id);
     const tracks = album.getTracks();
 
-    tracks.forEach(track => this.deleteTrackInPlaylist(track.getId()));
+    tracks.forEach(track => this.deleteTrackInPlaylists(track.getId()));
     artist.deleteAlbum(id);
   }
 
   deleteTrack(id) {
-    this.deleteTrackInPlaylist(id);
+    this.deleteTrackInPlaylists(id);
     this.artists.forEach(artist => artist.searchTrackAndDelete(id));
   }
 
@@ -223,7 +228,7 @@ class UnQify {
     this.playlists.filter(playlis => playlist.getId(id) !== id);
   }
 
-  deleteTrackInPlaylist(id) {
+  deleteTrackInPlaylists(id) {
     this.playlists.forEach(playlist => playlist.deleteTrack(id));
   }
 

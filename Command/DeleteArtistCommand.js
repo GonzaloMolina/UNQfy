@@ -1,9 +1,9 @@
 
 
 class DeleteArtistCommand {
-    invoke(args, unqfy) {
+    invoke(unqfy, args) {
         const id = Number(args[0]);
-        console.log(unqfy.deleteArtist(id));
+        unqfy.deleteArtist(id);
         console.log('The artist was deleted correctly.');
     }
 }

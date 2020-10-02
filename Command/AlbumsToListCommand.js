@@ -1,7 +1,7 @@
 
 
 class AlbumstToListCommand {
-    invoke(args, unqfy) {
+    invoke(unqfy) {
         console.log(unqfy.getAllAlbums());
     }
 }

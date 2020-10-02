@@ -1,12 +1,12 @@
 class AddArtistCommand {
     
-    invoke(args, unqfy) {
+    invoke(unqfy, args) {
         const artistData = {
             name: args[0],
             country: args[1],
         };
 
-        console.log(unqfy.addArtist(artistData));
+        unqfy.addArtist(artistData);
         console.log('The artist was added correctly.');
     }
 }
