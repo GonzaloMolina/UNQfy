@@ -1,7 +1,7 @@
 
 
 class ArtistToListCommand {
-    invoke(args, unqfy) {
+    invoke(unqfy) {
         console.log(unqfy.getAllArtists());
     }
 }

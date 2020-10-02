@@ -1,6 +1,6 @@
 
 class CreatePlaylistCommand {
-    invoke(args, unqfy) {
+    invoke(unqfy, args) {
         const name = args[0];
         const maxDuration = Number(args[1]);
         const genres = args.slice(2, args.length);

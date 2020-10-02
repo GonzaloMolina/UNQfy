@@ -43,7 +43,7 @@ class Artist {
 
     /**METHODS */
     delete() {
-       this.albums.delete();
+       this.albums.forEach(album => album.delete());
        this.albums = [];
     }
 

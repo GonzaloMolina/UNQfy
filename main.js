@@ -56,7 +56,7 @@ function main() {
 
   try {
     const command = operation.getCommand(nameFunction);
-        command.invoke(args, unQify);
+        command.invoke(unQify, args);
         saveUnQify(unQify);
 
   } catch (error){

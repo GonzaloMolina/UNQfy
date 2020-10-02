@@ -1,7 +1,7 @@
 
 
 class TracksToListCommand {
-    invoke(args, unqfy) {
+    invoke(unqfy) {
         console.log(unqfy.getAllTracks());
     }
 }
