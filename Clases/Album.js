@@ -3,7 +3,7 @@ const Track = require('./Track'); //Import Track
 
 class Album {
     constructor(name, year){
-        this.id = counter.getAlbumId();
+        this.id;
         this.name = name;
         this.year = year;
         this.tracks = [];
@@ -23,8 +23,11 @@ class Album {
     }
 
     /**SETTERS */
-    setTrack(name, duration, genres) {
-        const track = new Track(name, duration, genres);
+    setId(id){
+        this.id = id;
+    }
+
+    setTrack(track) {
         this.tracks.push(track);
         return track;
     }

@@ -3,7 +3,7 @@ const Album = require('./Album'); //Import Album
 
 class Artist {
     constructor(name, country){
-        this.id = counter.getArtistId();
+        this.id;
         this.name = name;
         this.country = country;
         this.albums = [];
@@ -13,6 +13,7 @@ class Artist {
     getId() {
         return this.id;
     }
+
 
     getName(){
         return this.name
@@ -35,8 +36,13 @@ class Artist {
     }
 
     /**SETTERS */
-    setAlbum(name, year){
-        var album = new Album(name, year);
+
+    setId(id){
+        this.id = id;
+    }
+
+
+    setAlbum(album){
         this.albums.push(album);
         return album;
     }

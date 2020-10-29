@@ -2,7 +2,7 @@ var counter = require('./Counter'); //Import Counter
 
 class Track {
     constructor(name, duration, genres) {
-        this.id = counter.getTrackId();
+        this.id;
         this.name = name;
         this.duration = duration;
         this.genres = genres;
@@ -19,6 +19,11 @@ class Track {
 
     getDuration(){
         return this.duration;
+    }
+
+    // SETTERS 
+    setId(id){
+        this.id = id;
     }
 
 }

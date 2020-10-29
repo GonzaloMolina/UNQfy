@@ -12,12 +12,15 @@ const ErrorInsufficientParameters= require('./Errors/ErrorInsufficientParameters
 const ErrorRepeatAlbum= require('./Errors/ErrorRepeatAlbum');
 const ErrorRepeatArtist= require('./Errors/ErrorRepeatArtist');
 const ErrorRepeatTrack = require('./Errors/ErrorRepeatTrack');
+const Counter = require('./Clases/Counter');
+
 
 class UnQify {
 
   constructor(){
     this.artists = [];
     this.playlists = [];
+    this.counter = new Counter();
   }
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -35,6 +38,7 @@ class UnQify {
     }
 
     const artist = new Artist(artistData.name, artistData.country);
+    artist.setId(this.counter.getArtistId())
     this.artists.push(artist);
     return artist;
   /* Crea un artista y lo agrega a unqfy.
@@ -67,7 +71,9 @@ class UnQify {
     }
 
     const artist = this.getArtistById(artistId);//this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
-    return artist.setAlbum(albumData.name, albumData.year);
+    const album = new Album(albumData.name, albumData.year);
+    album.setId(this.counter.getAlbumId())
+    return artist.setAlbum(album);
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos)):
      - una propiedad name (string)
@@ -106,7 +112,8 @@ class UnQify {
     }
 
     const album = this.getAlbumById(albumId);
-    return album.setTrack(trackData.name, trackData.duration, trackData.genres);
+    const track = new Track(trackData.name, trackData.duration, trackData.genres);
+    return album.setTrack(track);
   }
 
   createPlaylist(name, genresToInclude, maxDuration) {
@@ -122,15 +129,16 @@ class UnQify {
      // retorna: la nueva playlist creada
       const playlist = new Playlist(name, genresToInclude, maxDuration);
       var tracks = this.getTracksMatchingGenres(genresToInclude) ;
-      playlist.setTrackList(tracks); //FALTA VERIFICAR QUE NO PASE LA DURACION
+      playlist.setTrackList(tracks);
+      playlist.setId(this.counter.getPlaylistId())
       this.playlists.push(playlist);
       return playlist;
-    }
+  }
 
-    addTrackToPlaylist(trackId, playlistId){
-      const track = this.getTrackById(trackId);
-      this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track);
-    }
+  addTrackToPlaylist(trackId, playlistId){
+    const track = this.getTrackById(trackId);
+    this.playlists.find(playlist => playlist.getId() == playlistId).addTrack(track);
+  }
   
   getArtistById(id) {
     return this.artists.find(artist => artist.getId() === id);

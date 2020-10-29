@@ -2,7 +2,7 @@ var counter = require('./Counter'); //Import Counter
 
 class Playlist{
     constructor(name,genres,maxDuration){
-        this.id = counter.getPlaylistId()
+        this.id;
         this.name = name
         this.tracks = []
         this.genres = genres
@@ -10,9 +10,6 @@ class Playlist{
     }
 
     /**GETTERS */
-    duration(){
-        return this.maxDuration;
-    }
 
     getId(){
         return this.id;
@@ -22,8 +19,17 @@ class Playlist{
         return this.tracks;
     }
 
+    duration(){
+        return this.maxDuration;
+    }
+
     /**SETTERS */
-    setTrackList(trackList) { //tracklist 3 temas 1:3min , 2: 5min, 3: 4min, maxDuration 10
+
+    setId(id){
+        this.id = id;
+    }
+
+    setTrackList(trackList) {
         var counter = 0;
         for(var i=0; i<trackList.length; i++){
             if(counter + trackList[i].getDuration() <= this.maxDuration){

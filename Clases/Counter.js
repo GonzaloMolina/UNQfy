@@ -33,6 +33,4 @@ class Counter {
     
 }
 
-var counter = new Counter();
-
-module.exports = counter
+module.exports = Counter
