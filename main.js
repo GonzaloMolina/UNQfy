@@ -1,19 +1,9 @@
 const fs = require('fs'); // necesitado para guardar/cargar unQify
 const unqmod = require('./unqfy'); // importamos el modulo unQify
 const CommandInvoker = require('./Command/CommandInvoker'); // importo invoker
+const SAVE_FILENAME = 'data.json';
+const unqInstance = new unqmod.UnQify();
 
-// Retorna una instancia de unQify. Si existe filename, recupera la instancia desde el archivo.
-function getUnQify(filename = 'data.json') {
-  let unQify = new unqmod.UnQify();
-  if (fs.existsSync(filename)) {
-    unQify = unqmod.UnQify.load(filename);
-  }
-  return unQify;
-}
-
-function saveUnQify(unQify, filename = 'data.json') {
-  unQify.save(filename);
-}
 
 /*
  En esta funcion deberán interpretar los argumentos pasado por linea de comandos
@@ -47,7 +37,7 @@ function saveUnQify(unQify, filename = 'data.json') {
 
 function main() {
   
-  const unQify = getUnQify();
+  const unQify = unqInstance.getUnQify();
 
   const nameFunction = process.argv[2];
   const args = process.argv.splice(3);
@@ -57,7 +47,7 @@ function main() {
   try {
     const command = operation.getCommand(nameFunction);
         command.invoke(unQify, args);
-        saveUnQify(unQify);
+        unQify.save();
 
   } catch (error){
     console.log(error);

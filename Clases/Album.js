@@ -32,6 +32,10 @@ class Album {
         return track;
     }
 
+    setYear(year){
+        this.year = year
+    }
+
     /**METHODS */
     delete(){
         this.tracks = [];

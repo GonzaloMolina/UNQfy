@@ -13,6 +13,7 @@ const ErrorRepeatAlbum= require('./Errors/ErrorRepeatAlbum');
 const ErrorRepeatArtist= require('./Errors/ErrorRepeatArtist');
 const ErrorRepeatTrack = require('./Errors/ErrorRepeatTrack');
 const Counter = require('./Clases/Counter');
+const SAVE_FILENAME = 'data.json';
 
 
 class UnQify {
@@ -145,8 +146,8 @@ class UnQify {
   }
 
   getAlbumById(id) {
-    var artista = this.artists.find(artist => artist.existsAlbum(id));
-    return artista.getAlbumById(id);
+    var artist = this.artists.find(artist => artist.existsAlbum(id));
+    return artist.getAlbumById(id);
   }
 
   getTrackById(id) {
@@ -179,6 +180,16 @@ class UnQify {
   getAllAlbumsOfArtist(artistId) {
     var artist = this.artists.find(artist => artist.getId() === artistId);
     return artist.getAllAlbums();
+  }
+
+  getAlbumsByName(albumName){
+    const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.includes(albumName)));
+    return albums
+  }
+
+  getArtistsByName(artistName){
+    const artists = this.artists.filter(artist => artist.name.toLowerCase().includes(artistName.toLowerCase()));
+    return artists
   }
 
   getAllArtists() {
@@ -240,15 +251,56 @@ class UnQify {
     this.playlists.forEach(playlist => playlist.deleteTrack(id));
   }
 
-  save(filename) {
+  updateArtist(id, artist) {
+    const artistToUpdate = this.getArtistById(id)
+    artistToUpdate.setName(artist.name);
+    artistToUpdate.setCountry(artist.country);
+    const artistIndex = this.artists.findIndex(a => a.getId() === id);
+    this.artists.splice(artistIndex, 1,artistToUpdate);
+    return artistToUpdate;
+  }
+
+  updateAlbumYear(id, year){
+    var albumToUpdate = this.getAlbumById(id)
+    albumToUpdate.setYear(year)
+    const artist = this.artists.find(artist => artist.getAlbumById(id));
+    this.deleteAlbum(id)
+    this.addAlbum(artist.getId(),albumToUpdate)
+  }
+
+  removeArtist(artistId){
+    const artistIndex = this.artists.findIndex(a => a.getId() === artistId);
+    this.artists.splice(artistIndex, 1);
+  }
+
+
+  async populateAlbumsForArtist(artistName) {
+    const artist = this.getArtistByName(artistName);
+    const albums = await spotifyClient.getAlbumsArtistByName(artistName)
+    .then(albums => 
+      albums.map(album => new Album(album.name, album.release_date))
+    );
+    albums.forEach(album => this.addAlbum(artist.id, album));
+    this.save();
+  }
+
+  getUnQify() {
+    let unqify = new UnQify();
+    if (fs.existsSync(SAVE_FILENAME)) {
+      unqify = UnQify.load(SAVE_FILENAME);
+    }
+    return unqify;
+  }
+
+  save(){
     const serializedData = picklify.picklify(this);
-    fs.writeFileSync(filename, JSON.stringify(serializedData, null, 2));
+    fs.writeFileSync(SAVE_FILENAME, JSON.stringify(serializedData, null, 2));
   }
 
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UnQify, Artist, Album, Track, Playlist];
+    const classes = [UnQify, Artist, Album, Track, Playlist,Counter];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 }

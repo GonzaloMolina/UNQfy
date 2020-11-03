@@ -47,6 +47,14 @@ class Artist {
         return album;
     }
 
+    setName(name){
+        this.name = name
+    }
+
+    setCountry(country){
+        this.country = country
+    }
+
     /**METHODS */
     delete() {
        this.albums.forEach(album => album.delete());
