@@ -1,12 +1,11 @@
-var counter = require('./Counter'); //Import Counter
 const Track = require('./Track'); //Import Track
 
 class Album {
     constructor(name, year){
         this.id;
         this.name = name;
-        this.year = year;
         this.tracks = [];
+        this.year = year;
     }
 
     /**GETTERS */

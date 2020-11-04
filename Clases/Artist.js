@@ -1,13 +1,12 @@
-var counter = require('./Counter'); //Import Counter
+
 const Album = require('./Album'); //Import Album
 
 class Artist {
     constructor(name, country){
         this.id;
         this.name = name;
-        this.country = country;
         this.albums = [];
-        
+        this.country = country;
     }
     /**GETTERS */
     getId() {

@@ -22,9 +22,9 @@
       "idPlaylists": 0
     },
     "__00005__": {
-      "name": "Guns n' Roses",
-      "country": "USA",
+      "name": "Guns and Roses",
       "albums": "__00006__",
+      "country": "United States",
       "id": 0
     },
     "__00006__": {}

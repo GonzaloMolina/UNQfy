@@ -1,5 +1,3 @@
-var counter = require('./Counter'); //Import Counter
-
 class Track {
     constructor(name, duration, genres) {
         this.id;

@@ -1,19 +1,47 @@
-
 const express = require('express');
-const artists = express();
+const artists = express()
 
 
 artists.get('/artists/:artistId', (req, res) => {
     const artistId = parseInt(req.params.artistId);
-    res.status(200).json(req.unQify.getArtistById(artistId));
+    const checkArtist = req.unQify.getArtistById(artistId);
+    if(!checkArtist) {
+        res.status(404)
+        res.json({status: 404, errorCode: 'RESOURCE_NOT_FOUND'})
+    } else{
+        res.status(200).json(checkArtist);
+    }
 });
 
 artists.post('/artists', (req, res) => {
-    const artist = req.unQify.addArtist(req.body);
-    req.unQify.save();
-    res.status(201).json(artist);
+    console.log(JSON.stringify(req.body))
+    try{
+        if(isValidJSONString(JSON.stringify(req.body))){
+            const artist = req.unQify.addArtist(req.body);
+            req.unQify.save();
+            res.status(201).json(artist);
+        } else{
+            res.status(400)
+            res.json({status: 400, errorCode: 'BAD_REQUEST'})
+        }
+        
+    }catch(e){
+        if(e.name == 'ErrorReapeatArtist'){
+            res.status(409)
+            res.json({status: 409, errorCode: 'RESOURCE_ALREADY_EXISTS'})
+        }
+    }
+
 });
 
+function isValidJSONString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
 artists.put('/artists/:artistId', (req, res) => {
     const artistId = parseInt(req.params.artistId);
@@ -33,7 +61,6 @@ artists.delete('/artists/:artistId', (req, res) => {
 
 
 artists.get('/artists', (req, res) => {
-    console.log(req.unQify)
     res.status(200).json(req.unQify.getArtistsByName(req.query.name));
 });
 

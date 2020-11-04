@@ -14,6 +14,7 @@ const ErrorRepeatArtist= require('./Errors/ErrorRepeatArtist');
 const ErrorRepeatTrack = require('./Errors/ErrorRepeatTrack');
 const Counter = require('./Clases/Counter');
 const SAVE_FILENAME = 'data.json';
+const spotifyClient = require('./ApiClients/SpotifyClient')
 
 
 class UnQify {
@@ -145,9 +146,15 @@ class UnQify {
     return this.artists.find(artist => artist.getId() === id);
   }
 
-  getAlbumById(id) {
-    var artist = this.artists.find(artist => artist.existsAlbum(id));
-    return artist.getAlbumById(id);
+  getAlbumById(albumId) {
+    var artist = this.artists.find(artist => artist.existsAlbum(albumId));
+    console.log(artist)
+    return artist.getAlbumById(albumId);
+  }
+
+  getArtistByAlbumId(albumId){
+    var artist = this.artists.find(artist => artist.existsAlbum(albumId));
+    return artist;
   }
 
   getTrackById(id) {
@@ -182,14 +189,20 @@ class UnQify {
     return artist.getAllAlbums();
   }
 
-  getAlbumsByName(albumName){
-    const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.includes(albumName)));
+  getAlbumByName(albumName){
+    var albums = this.getAllAlbums().find(album => album.getName() == albumName);
     return albums
   }
 
   getArtistsByName(artistName){
-    const artists = this.artists.filter(artist => artist.name.toLowerCase().includes(artistName.toLowerCase()));
-    return artists
+    if(typeof artistName === 'undefined'){
+      const artists = this.artists.filter(artist => artist.name.toLowerCase().includes(''));
+      return artists
+    } else {
+      const artists = this.artists.filter(artist => artist.name.toLowerCase().includes(artistName.toLowerCase()));
+      return artists
+    }
+    
   }
 
   getAllArtists() {
@@ -209,6 +222,17 @@ class UnQify {
   getTracksFromPlaylist(playlistId) {
     var playlist = this.getPlaylistById(playlistId);
     return playlist.getTracks();
+  }
+
+  getAlbumsByName(albumName){
+    if(typeof albumName === 'undefined'){
+      const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.includes('')));
+      return albums
+
+    } else {
+      const albums = this.artists.flatMap(artist => artist.albums.filter(album => album.name.toLowerCase().includes(albumName.toLowerCase())));
+      return albums
+    }
   }
 
   searchByName(name) {
@@ -261,11 +285,14 @@ class UnQify {
   }
 
   updateAlbumYear(id, year){
-    var albumToUpdate = this.getAlbumById(id)
-    albumToUpdate.setYear(year)
-    const artist = this.artists.find(artist => artist.getAlbumById(id));
-    this.deleteAlbum(id)
-    this.addAlbum(artist.getId(),albumToUpdate)
+    var artistRecovered = this.getArtistByAlbumId(id);//this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
+    const album = artistRecovered.getAlbumById(id)
+    album.setYear(year)
+    artistRecovered.deleteAlbum(id)
+    artistRecovered.setAlbum(album)
+    const artistIndex = this.artists.findIndex(artist => artist.getId() === artistRecovered.getId())
+    this.artists.splice(artistIndex, 1,artistRecovered);
+    return album
   }
 
   removeArtist(artistId){
@@ -274,7 +301,7 @@ class UnQify {
   }
 
 
-  async populateAlbumsForArtist(artistName) {
+  async popularAlbumsForArtist(artistName) {
     const artist = this.getArtistByName(artistName);
     const albums = await spotifyClient.getAlbumsArtistByName(artistName)
     .then(albums => 
@@ -282,6 +309,7 @@ class UnQify {
     );
     albums.forEach(album => this.addAlbum(artist.id, album));
     this.save();
+    return albums
   }
 
   getUnQify() {
