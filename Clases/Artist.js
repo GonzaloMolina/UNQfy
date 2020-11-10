@@ -23,7 +23,7 @@ class Artist {
     }
     
     getAlbumById(id) {
-        return this.albums.find(album => album.getId() == id);
+        return this.albums.find(album => album.id == id);
     }
 
     getTrackById(id) {
@@ -31,7 +31,7 @@ class Artist {
     }
 
     getTracks() {
-        return this.albums.flatMap(album => album.getTracks());
+        return this.albums.flatMap(album => album.tracks);
     }
 
     /**SETTERS */
@@ -71,7 +71,7 @@ class Artist {
     }
 
     existsAlbum(id){
-        var album = this.albums.find(album => album.getId() == id);
+        var album = this.albums.find(album => album.id == id);
         return this.albums.includes(album)
     }
 

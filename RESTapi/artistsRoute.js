@@ -16,16 +16,10 @@ artists.get('/artists/:artistId', (req, res) => {
 artists.post('/artists', (req, res) => {
     console.log(JSON.stringify(req.body))
     try{
-        if(isValidJSONString(JSON.stringify(req.body))){
             const artist = req.unQify.addArtist(req.body);
             req.unQify.save();
             res.status(201).json(artist);
-        } else{
-            res.status(400)
-            res.json({status: 400, errorCode: 'BAD_REQUEST'})
-        }
-        
-    }catch(e){
+        }catch(e){
         if(e.name == 'ErrorReapeatArtist'){
             res.status(409)
             res.json({status: 409, errorCode: 'RESOURCE_ALREADY_EXISTS'})

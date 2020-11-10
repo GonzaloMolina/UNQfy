@@ -1,8 +1,9 @@
-const unqmod = require('../unqfy');
+const unqmod = require('./unqfy');
 const express = require('express');
 const app = express();
-const artists = require('./artistsRoute')
-const albums = require('./albumsRoute');
+const artists = require('./RESTapi/artistsRoute')
+const albums = require('./RESTapi/albumsRoute');
+const tracks = require('./RESTapi/tracksLyricsRoute');
 const bodyParse = require('body-parser');
 const port = process.env.PORT || 5000;
 const unQify = new unqmod.UnQify();
@@ -21,7 +22,7 @@ function invalidJson(err, req, res, next) {
 
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(bodyParse.json());
-app.use('/api', artists, albums);
+app.use('/api', artists, albums, tracks);
 app.use(invalidJson);
 
 app.use((req,res) => {

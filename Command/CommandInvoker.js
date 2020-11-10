@@ -14,6 +14,7 @@ const SearchByNameCommand = require('./SearchByNameCommand');
 const TracksFromArtistCommand = require('./TracksFromArtistCommand');
 const TracksOfGenreCommand = require('./TracksOfGenreCommand');
 const PopularAlbumsFromArtistCommand = require('./PopularAlbumsFromArtistCommand');
+const GetLyricsCommand = require('./GetLyricsCommand');
 
 
 class CommandInvoker {
@@ -35,6 +36,7 @@ class CommandInvoker {
             tracksFromArtist: new TracksFromArtistCommand(),
             tracksOfGenre: new TracksOfGenreCommand(),
             populateAlbumsFromArtist: new PopularAlbumsFromArtistCommand(),
+            getLyrics: new GetLyricsCommand(),
         };
     }
 

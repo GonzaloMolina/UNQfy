@@ -21,6 +21,11 @@ class Album {
         return this.tracks;
     }
 
+    existsTrack(trackId){
+        var track = this.tracks.find(track => track.id == trackId)
+        return this.tracks.includes(track)
+    }
+
     /**SETTERS */
     setId(id){
         this.id = id;

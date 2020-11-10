@@ -1,4 +1,3 @@
-
 const picklify = require('picklify'); // para cargar/guarfar unqfy
 const fs = require('fs'); // para cargar/guarfar unqfy
 const Artist = require('./Clases/Artist');
@@ -13,8 +12,11 @@ const ErrorRepeatAlbum= require('./Errors/ErrorRepeatAlbum');
 const ErrorRepeatArtist= require('./Errors/ErrorRepeatArtist');
 const ErrorRepeatTrack = require('./Errors/ErrorRepeatTrack');
 const Counter = require('./Clases/Counter');
-const SAVE_FILENAME = 'data.json';
+const SAVE_FILENAME = 'data.json'
 const spotifyClient = require('./ApiClients/SpotifyClient')
+const InstanceOfSpotify = new spotifyClient.SpotifyClient()
+const musixMatchClient = require('./ApiClients/MusixMatchClient');
+const instanceOfMusixMatch = new musixMatchClient.MusixMatchClient();
 
 
 class UnQify {
@@ -107,14 +109,16 @@ class UnQify {
       throw new ErrorDoesntExistsAlbum();
     }
 
-    const checkTrack = this.getAllAlbums().flatMap(album => album.getTracks()).find(track => track.name === trackData.name);
+    //const checkTrack = this.getAllAlbums().flatMap(album => album.getTracks()).find(track => track.name === trackData.name);
 
+    /*
     if(checkTrack) {
       throw new ErrorRepeatTrack();
     }
-
+    */
     const album = this.getAlbumById(albumId);
     const track = new Track(trackData.name, trackData.duration, trackData.genres);
+    track.setId(this.counter.getTrackId())
     return album.setTrack(track);
   }
 
@@ -148,7 +152,6 @@ class UnQify {
 
   getAlbumById(albumId) {
     var artist = this.artists.find(artist => artist.existsAlbum(albumId));
-    console.log(artist)
     return artist.getAlbumById(albumId);
   }
 
@@ -157,9 +160,21 @@ class UnQify {
     return artist;
   }
 
-  getTrackById(id) {
+  getArtistByTrackId(trackId){
+    var albums = this.getAllAlbums();
+    var album = albums.find(album => album.existsTrack(trackId))
+    var artist = this.getArtistByAlbumId(album.getId())
+    return artist
+  }
+
+  getTrackById(trackId) {
     var tracks = this.getAllTracks();
-    return tracks.find(track => track.getId() == id);
+    var tracksFiltrados = tracks.filter(track => typeof track !== 'undefined')
+    var track = tracksFiltrados.find(track => track.id == trackId)
+    if(!track){
+      throw new ErrorDoesntExistsTrack();
+    }
+    return track;
   }
 
   getPlaylistById(id) {
@@ -205,12 +220,17 @@ class UnQify {
     
   }
 
+  getArtistByName(artistName){
+    return this.artists.find(artist => artist.getName().toLowerCase() == artistName.toLowerCase())
+
+  }
+
   getAllArtists() {
     return this.artists;
   }
 
   getAllTracks() {
-    return this.getAllAlbums().flatMap(album => album.getTracks());
+    return this.getAllAlbums().flatMap(album => album.tracks);
   }
 
   getTracksFromAlbum(albumId) {
@@ -245,12 +265,18 @@ class UnQify {
 
   deleteArtist(id) {
     const artistToDelete = this.getArtistById(id);
-    const tracks = artistToDelete.getTracks();
-    
-    tracks.forEach(track => this.deleteTrackInPlaylists(track.getId()));
-    artistToDelete.delete();
-
-    this.artists = this.artists.filter(artist => artist.getId() !== artistToDelete.getId());
+    if(typeof artistToDelete !== 'undefined'){
+      const tracks = artistToDelete.getTracks();
+      if(typeof tracks === 'undefined'){
+        throw new ErrorDoesntExistsArtist();
+      } else{
+        tracks.forEach(track => this.deleteTrackInPlaylists(track.getId()));
+        artistToDelete.delete();
+      }
+      this.artists = this.artists.filter(artist => artist.getId() !== artistToDelete.getId());
+    } else{
+      throw new ErrorDoesntExistsArtist();
+    }
   }
 
   deleteAlbum(id) {
@@ -303,14 +329,29 @@ class UnQify {
 
   async popularAlbumsForArtist(artistName) {
     const artist = this.getArtistByName(artistName);
-    const albums = await spotifyClient.getAlbumsArtistByName(artistName)
-    .then(albums => 
-      albums.map(album => new Album(album.name, album.release_date))
+    const albumsFromSpotify = await InstanceOfSpotify.getAlbumsArtistByName(artistName)
+    .then(albumsFromSpotify => 
+      albumsFromSpotify.map(album => new Album(album.name, album.release_date.substr(0,4))),
     );
-    albums.forEach(album => this.addAlbum(artist.id, album));
+    albumsFromSpotify.forEach(album => this.addAlbum(artist.getId(), album));
     this.save();
-    return albums
+    return albumsFromSpotify
   }
+
+  async getLyrics(trackId){
+    var artist = this.getArtistByTrackId(trackId)
+    var track = this.getTrackById(trackId);
+    if(track.getLyrics() == ''){
+      var lyrics = await instanceOfMusixMatch.getTrackLyrics(track.name, artist.name)
+      console.log(lyrics)
+      track.setLyrics(lyrics)
+      this.save()
+      return lyrics
+    } else { 
+      return track.getLyrics();
+    }
+  }
+
 
   getUnQify() {
     let unqify = new UnQify();
@@ -323,6 +364,10 @@ class UnQify {
   save(){
     const serializedData = picklify.picklify(this);
     fs.writeFileSync(SAVE_FILENAME, JSON.stringify(serializedData, null, 2));
+  }
+
+  saveUNQfy(unqfy, filename = 'data.json') {
+    unqfy.save(filename);
   }
 
   static load(filename) {

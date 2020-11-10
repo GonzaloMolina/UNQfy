@@ -1,7 +1,6 @@
 const fs = require('fs'); // necesitado para guardar/cargar unQify
 const unqmod = require('./unqfy'); // importamos el modulo unQify
 const CommandInvoker = require('./Command/CommandInvoker'); // importo invoker
-const SAVE_FILENAME = 'data.json';
 const unqInstance = new unqmod.UnQify();
 
 
@@ -35,7 +34,7 @@ const unqInstance = new unqmod.UnQify();
 
 */
 
-function main() {
+async function main() {
   
   const unQify = unqInstance.getUnQify();
 
@@ -46,8 +45,8 @@ function main() {
 
   try {
     const command = operation.getCommand(nameFunction);
-        command.invoke(unQify, args);
-        unQify.save();
+    await command.invoke(unQify, args);
+    unQify.save()
 
   } catch (error){
     console.log(error);

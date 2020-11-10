@@ -1,5 +1,3 @@
-
-
 class DeleteArtistCommand {
     invoke(unqfy, args) {
         const id = Number(args[0]);

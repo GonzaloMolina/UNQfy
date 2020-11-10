@@ -1,8 +1,7 @@
 class PopularAlbumsFromArtistCommand {
-    invoke(unqfy, args) {
-        const artistName = Number(args[0]);
-        unqfy.popularAlbumsForArtist(artistName)
-        console.log(albums);
+    async invoke(unqfy, args) {
+        const artistName = String(args[0]);
+        await unqfy.popularAlbumsForArtist(artistName)
     }
 }
 

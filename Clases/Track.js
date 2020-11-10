@@ -4,6 +4,7 @@ class Track {
         this.name = name;
         this.duration = duration;
         this.genres = genres;
+        this.lyrics = '';
     }
 
     /**GETTERS */
@@ -19,9 +20,17 @@ class Track {
         return this.duration;
     }
 
+    getLyrics(){
+        return this.lyrics;
+    }
+
     // SETTERS 
     setId(id){
         this.id = id;
+    }
+
+    setLyrics(lyrics){
+        this.lyrics = lyrics;
     }
 
 }
