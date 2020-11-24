@@ -52,6 +52,7 @@ class MusixMatchClient {
             const response = await rp.get(options).then(response => {return response});
             console.log(response)
             const lyricsBody = response.message.body.lyrics.lyrics_body;
+            console.log(lyricsBody)
             return lyricsBody !== '' ? lyricsBody : 'No tiene Letra';
         } catch (error) {
             return console.log(error);
