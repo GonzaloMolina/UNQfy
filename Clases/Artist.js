@@ -80,12 +80,12 @@ class Artist {
         return this.albums.includes(album)
     }
 
-    subscribe(anSubscriber){
-        this.subscribers.push(anSubscriber);
+    subscribe(anSubscriberEmail){
+        this.subscribers.push(anSubscriberEmail);
     }
 
-    unsubscribe(anSubscriberMail){
-        this.subscribers.filter(subscriber => subscriber.email != anSubscriberMail);
+    unsubscribe(anSubscriberEmail){
+        this.subscribers.filter(subscriber => subscriber != anSubscriberEmail);
     }
 
 

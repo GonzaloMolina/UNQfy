@@ -1,12 +1,10 @@
 const unqmod = require('./unqfy');
 const express = require('express');
 const app = express();
-const artists = require('./RESTapiSpotify/artistsRoute')
-const albums = require('./RESTapiSpotify/albumsRoute');
-const tracks = require('./RESTapiSpotify/tracksLyricsRoute');
 const bodyParse = require('body-parser');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 const unQify = new unqmod.UnQify();
+const subscribeRoute = require('./RESTapiNotify/subscribeRoute');
 
 app.use((req, res, next) => {
     req.unQify = unQify.getUnQify();
@@ -22,7 +20,7 @@ function invalidJson(err, req, res, next) {
 
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(bodyParse.json());
-app.use('/api', artists, albums, tracks);
+app.use('/api', subscribeRoute);
 app.use(invalidJson);
 
 app.use((req,res) => {

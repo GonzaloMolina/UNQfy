@@ -377,13 +377,13 @@ class UnQify {
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
-  subscribe(anUser,anArtistId) {
+  subscribe(anUserEmail,anArtistId) {
     const checkArtist = this.getArtistById(anArtistId);
 
     if(!checkArtist) {
       throw new ErrorDoesntExistsArtist();
     }
-    checkArtist.subscribe(anUser);
+    checkArtist.subscribe(anUserEmail);
 
   }
 
