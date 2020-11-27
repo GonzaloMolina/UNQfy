@@ -5,6 +5,7 @@ const bodyParse = require('body-parser');
 const port = process.env.PORT || 5001;
 const unQify = new unqmod.UnQify();
 const subscribeRoute = require('./RESTapiNotify/subscribeRoute');
+const unsubscribeRoute = require('./RESTapiNotify/unsubscribeRoute');
 
 app.use((req, res, next) => {
     req.unQify = unQify.getUnQify();
@@ -20,7 +21,7 @@ function invalidJson(err, req, res, next) {
 
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(bodyParse.json());
-app.use('/api', subscribeRoute);
+app.use('/api', subscribeRoute, unsubscribeRoute);
 app.use(invalidJson);
 
 app.use((req,res) => {

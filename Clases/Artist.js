@@ -85,7 +85,7 @@ class Artist {
     }
 
     unsubscribe(anSubscriberEmail){
-        this.subscribers.filter(subscriber => subscriber != anSubscriberEmail);
+        this.subscribers = this.subscribers.filter(subscriber => subscriber !== anSubscriberEmail);
     }
 
 

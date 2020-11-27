@@ -1,13 +1,13 @@
 const express = require('express');
-const subscribe = express();
+const unsubscribe = express();
 
-subscribe.post('/subscribe', (req, res) => {
+unsubscribe.post('/unsubscribe', (req, res) => {
     let artistId = parseInt(req.body.artistId);
     let email = req.body.email;
     try{        
-        req.unQify.subscribe(email,artistId);
+        req.unQify.unsubscribe(email,artistId);
         req.unQify.save();
-        res.status(200).json('Suscripción Exitosa');
+        res.status(200).json('Desuscripción Exitosa');
     }catch(e){
         if(e.name == 'ErrorInsufficientParameters'){
             res.status(404)
@@ -19,4 +19,4 @@ subscribe.post('/subscribe', (req, res) => {
     }
 });
 
-module.exports = subscribe;
+module.exports = unsubscribe;
