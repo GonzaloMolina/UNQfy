@@ -7,6 +7,7 @@ class Artist {
         this.name = name;
         this.albums = [];
         this.country = country;
+        this.subscribers = [];
     }
     /**GETTERS */
     getId() {
@@ -32,6 +33,10 @@ class Artist {
 
     getTracks() {
         return this.albums.flatMap(album => album.tracks);
+    }
+
+    getSubscribers() {
+        return this.suscribers;
     }
 
     /**SETTERS */
@@ -73,6 +78,14 @@ class Artist {
     existsAlbum(id){
         var album = this.albums.find(album => album.id == id);
         return this.albums.includes(album)
+    }
+
+    subscribe(anSubscriber){
+        this.subscribers.push(anSubscriber);
+    }
+
+    unsubscribe(anSubscriberMail){
+        this.subscribers.filter(subscriber => subscriber.email != anSubscriberMail);
     }
 
 

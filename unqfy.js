@@ -376,6 +376,25 @@ class UnQify {
     const classes = [UnQify, Artist, Album, Track, Playlist,Counter];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
+
+  subscribe(anUser,anArtistId) {
+    const checkArtist = this.getArtistById(anArtistId);
+
+    if(!checkArtist) {
+      throw new ErrorDoesntExistsArtist();
+    }
+    checkArtist.subscribe(anUser);
+
+  }
+
+  unsubscribe(anUserEmail, anArtistId) {
+    const checkArtist = this.getArtistById(anArtistId);
+
+    if(!checkArtist) {
+      throw new ErrorDoesntExistsArtist();
+    }
+    checkArtist.unsubscribe(anUserEmail);
+  }
 }
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
