@@ -7,6 +7,7 @@ notify.post('/notify', (req, res) => {
         let artist = req.unQify.getArtistById(artistId)
         let interestedUsers = artist.getSubscribers()
         //req.unQify.save();
+        console.log(res)
         res.status(200).json(interestedUsers);
     }catch(e){
         if(e.name == 'ErrorInsufficientParameters'){

@@ -78,12 +78,14 @@ class UnQify {
     const album = new Album(albumData.name, albumData.year);
     album.setId(this.counter.getAlbumId())
     var options = {
-                method: 'POST',
-                uri: 'http://localhost:5001/api/notify',
-                body: {
-                  "artistId" : parseInt(artist.getId())
-                },
-                json: true // Automatically stringifies the body to JSON
+      method: 'POST',
+      uri: 'http://localhost:5001/api/notify',
+      body: {
+        "artistId" : parseInt(artist.getId()),
+        "subject": "Nuevo Album del artista: " + artist.getName(), 
+        "message": "Se ha agregado el album " +  album.getName() + " al artista " + artist.getName()               
+      },
+      json: true // Automatically stringifies the body to JSON
             };
     rp.post(options).then(response => console.log(response))
     return artist.setAlbum(album);
