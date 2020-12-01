@@ -17,64 +17,30 @@
     "__00003__": {},
     "__00004__": {
       "idArtists": 1,
-      "idAlbums": 6,
+      "idAlbums": 1,
       "idTracks": 0,
       "idPlaylists": 0
     },
     "__00005__": {
-      "name": "Leo",
+      "name": "Gonza",
       "albums": "__00006__",
       "country": "Argentina",
       "subscribers": "__00007__",
       "id": 0
     },
     "__00006__": {
-      "0": "__00008__",
-      "1": "__00009__",
-      "2": "__00010__",
-      "3": "__00011__",
-      "4": "__00012__"
+      "0": "__00008__"
     },
     "__00007__": {
-      "0": "unemail@unDominio.com",
-      "1": "unemail1@unDominio.com",
-      "2": "unemail1@unDominio.com"
+      "0": "gonza.molinad@gmail.com"
     },
     "__00008__": {
-      "name": "Appetite For Destruction",
-      "tracks": "__00013__",
+      "name": "Prueba Album",
+      "tracks": "__00009__",
       "year": 2000,
-      "id": 1
+      "id": 0
     },
-    "__00009__": {
-      "name": "Appetite For Destruction 2",
-      "tracks": "__00014__",
-      "year": 2000,
-      "id": 2
-    },
-    "__00010__": {
-      "name": "Appetite For Destruction 3",
-      "tracks": "__00015__",
-      "year": 2000,
-      "id": 3
-    },
-    "__00011__": {
-      "name": "Appetite For Destruction 4",
-      "tracks": "__00016__",
-      "year": 2000,
-      "id": 4
-    },
-    "__00012__": {
-      "name": "Appetite For Destruction 5",
-      "tracks": "__00017__",
-      "year": 2000,
-      "id": 5
-    },
-    "__00013__": {},
-    "__00014__": {},
-    "__00015__": {},
-    "__00016__": {},
-    "__00017__": {}
+    "__00009__": {}
   },
   "types": {
     "__00001__": "UnQify",
@@ -85,14 +51,6 @@
     "__00006__": "Array",
     "__00007__": "Array",
     "__00008__": "Album",
-    "__00009__": "Album",
-    "__00010__": "Album",
-    "__00011__": "Album",
-    "__00012__": "Album",
-    "__00013__": "Array",
-    "__00014__": "Array",
-    "__00015__": "Array",
-    "__00016__": "Array",
-    "__00017__": "Array"
+    "__00009__": "Array"
   }
 }
