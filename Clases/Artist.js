@@ -36,7 +36,7 @@ class Artist {
     }
 
     getSubscribers() {
-        return this.suscribers;
+        return this.subscribers;
     }
 
     /**SETTERS */

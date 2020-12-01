@@ -18,7 +18,7 @@ albums.post('/albums', (req, res) => {
             res.json({status: 404, errorCode: 'RELATED_RESOURCE_NOT_FOUND'})
         }else {
             res.status(409)
-            res.json({status: 409, errorCode: 'RESOURCE_ALREADY_EXISTS'})
+            res.json(e)
         }
     }
 });

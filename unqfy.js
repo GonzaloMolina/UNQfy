@@ -17,6 +17,7 @@ const spotifyClient = require('./ApiClients/SpotifyClient')
 const InstanceOfSpotify = new spotifyClient.SpotifyClient()
 const musixMatchClient = require('./ApiClients/MusixMatchClient');
 const instanceOfMusixMatch = new musixMatchClient.MusixMatchClient();
+const rp = require('request-promise');
 
 
 class UnQify {
@@ -67,16 +68,24 @@ class UnQify {
     if(!checkArtist) {
       throw new ErrorDoesntExistsArtist();
     }
-
     const checkAlbum = this.getAllAlbums().find(album => album.getName() == albumData.name);
-
     if(checkAlbum) {
       throw new ErrorRepeatAlbum();
     }
 
     const artist = this.getArtistById(artistId);//this.artists.filter(artist => artist.id == artistId)[0].setAlbum(albumData.name, albumData.year);
+    
     const album = new Album(albumData.name, albumData.year);
     album.setId(this.counter.getAlbumId())
+    var options = {
+                method: 'POST',
+                uri: 'http://localhost:5001/api/notify',
+                body: {
+                  "artistId" : parseInt(artist.getId())
+                },
+                json: true // Automatically stringifies the body to JSON
+            };
+    rp.post(options).then(response => console.log(response))
     return artist.setAlbum(album);
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos)):
