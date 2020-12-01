@@ -389,22 +389,14 @@ class UnQify {
   }
 
   subscribe(anUserEmail,anArtistId) {
-    const checkArtist = this.getArtistById(anArtistId);
-
-    if(!checkArtist) {
-      throw new ErrorDoesntExistsArtist();
-    }
-    checkArtist.subscribe(anUserEmail);
+    const artist = this.getArtistById(anArtistId);
+    artist.subscribe(anUserEmail);
 
   }
 
   unsubscribe(anUserEmail, anArtistId) {
-    const checkArtist = this.getArtistById(anArtistId);
-
-    if(!checkArtist) {
-      throw new ErrorDoesntExistsArtist();
-    }
-    checkArtist.unsubscribe(anUserEmail);
+    const artist = this.getArtistById(anArtistId);
+    artist.unsubscribe(anUserEmail);
   }
 }
 
