@@ -6,8 +6,8 @@ subscribe.post('/subscribe', (req, res) => {
     let artistId = parseInt(req.body.artistId);
     let email = req.body.email;
     rp.get("http://localhost:5000/api/artists/" + artistId).then(response =>
-        {req.unQify.subscribe(email,artistId);
-        req.unQify.save();
+        {req.newsletter.subscribe(artistId,email);
+            console.log(req.newsletter.getEmails(artistId))
         res.status(200).json('Suscripción Exitosa');}
     ).catch(e =>{
         if(e.name == 'ErrorInsufficientParameters'){

@@ -1,15 +1,14 @@
-const unqmod = require('./unqfy');
 const express = require('express');
 const app = express();
 const bodyParse = require('body-parser');
 const port = process.env.PORT || 5001;
-const unQify = new unqmod.UnQify();
+const newsletter= require('./Clases/Newsletter')
 const subscribeRoute = require('./RESTapiNotify/subscribeRoute');
 const unsubscribeRoute = require('./RESTapiNotify/unsubscribeRoute');
 const notifyRoute = require('./RESTapiNotify/notifyRoute');
 
 app.use((req, res, next) => {
-    req.unQify = unQify.getUnQify();
+    req.newsletter = new newsletter();
     next();
 });
 
