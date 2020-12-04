@@ -17,6 +17,7 @@ const spotifyClient = require('./ApiClients/SpotifyClient')
 const InstanceOfSpotify = new spotifyClient.SpotifyClient()
 const musixMatchClient = require('./ApiClients/MusixMatchClient');
 const instanceOfMusixMatch = new musixMatchClient.MusixMatchClient();
+
 const rp = require('request-promise');
 
 
@@ -77,17 +78,7 @@ class UnQify {
     
     const album = new Album(albumData.name, albumData.year);
     album.setId(this.counter.getAlbumId())
-    var options = {
-      method: 'POST',
-      uri: 'http://localhost:5001/api/notify',
-      body: {
-        "artistId" : parseInt(artist.getId()),
-        "subject": "Nuevo Album del artista: " + artist.getName(), 
-        "message": "Se ha agregado el album " +  album.getName() + " al artista " + artist.getName()               
-      },
-      json: true // Automatically stringifies the body to JSON
-            };
-    rp.post(options).then(response => console.log(response))
+    this.notifyAddAlbum(artist,album)
     return artist.setAlbum(album);
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos)):
@@ -362,6 +353,20 @@ class UnQify {
       return track.getLyrics();
     }
   }
+
+  notifyAddAlbum(artist,album){
+    var options = {
+        method: 'POST',
+        uri: 'http://localhost:5001/api/notify',
+        body: {
+          "artistId" : parseInt(artist.getId()),
+          "subject": "Nuevo Album del artista: " + artist.getName(), 
+          "message": "Se ha agregado el album " +  album.getName() + " al artista " + artist.getName()               
+        },
+        json: true // Automatically stringifies the body to JSON
+              };
+      rp.post(options).then(response => console.log(response))
+}
 
 
   getUnQify() {

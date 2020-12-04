@@ -29,7 +29,7 @@ class Newsletter {
 
   notify(artistId, subject, message) {
     this.subscribers[artistId].forEach(email => {
-        GmailAPIInstance.sendEmail(subject, message, email).then( 
+        GmailAPIInstance.send_mail(subject,message,{email: email},{email: 'gonza.molinad@gmail.com'}).then( 
             (gmailResponse) => {
             console.log("Mail enviado!");
             console.log(gmailResponse);

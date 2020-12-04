@@ -3,12 +3,13 @@ const app = express();
 const bodyParse = require('body-parser');
 const port = process.env.PORT || 5001;
 const newsletter= require('./Clases/Newsletter')
+const newsletterInstance= new newsletter();
 const subscribeRoute = require('./RESTapiNotify/subscribeRoute');
 const unsubscribeRoute = require('./RESTapiNotify/unsubscribeRoute');
 const notifyRoute = require('./RESTapiNotify/notifyRoute');
 
 app.use((req, res, next) => {
-    req.newsletter = new newsletter();
+    req.newsletter = newsletterInstance;
     next();
 });
 
