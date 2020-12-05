@@ -19,6 +19,10 @@ class NotifyLog {
     this.notify({ message: 'Se agrego el album ' + album.getName() + ' al artista ' + artist.getName(), levelMessage: 'info'});
   }
 
+  notifyAddArtist(artist) {
+    this.notify({ message: 'Se agrego el artista ' + artist.getName(), levelMessage: 'info'});
+  }
+
 }
 
 module.exports = NotifyLog;

@@ -370,6 +370,10 @@ class UnQify {
     this.observers.forEach(observer => observer.notifyAddAlbum(artist, album));
   }
 
+  notifyAllObserversAddArtist(artist) {
+    this.observers.forEach(observer => observer.notifyAddArtist(artist));
+  }
+
   getUnQify() {
     let unqify = new UnQify();
     if (fs.existsSync(SAVE_FILENAME)) {

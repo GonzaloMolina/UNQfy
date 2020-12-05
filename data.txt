@@ -1,2 +1,10 @@
 
 MENSAJE: Se agrego el album Loggly1al artista Gonza NIVEL: info
+MENSAJE: Se agrego el artista Gonzalo2 NIVEL: info
+MENSAJE: Se agrego el artista Gonzalo4 NIVEL: info
+MENSAJE: Se agrego el artista Gonzalo5 NIVEL: info
+MENSAJE: Se agrego el artista Gonzalo6 NIVEL: info
+MENSAJE: Se agrego el artista Gonzalo10 NIVEL: info
+MENSAJE: Se agrego el album Loggly2 al artista Gonza NIVEL: info
+MENSAJE: Se agrego el album Loggly3 al artista Gonza NIVEL: info
+MENSAJE: Se agrego el artista Gonza NIVEL: info

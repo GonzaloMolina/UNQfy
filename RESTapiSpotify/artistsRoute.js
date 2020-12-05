@@ -5,7 +5,6 @@ const artists = express()
 artists.get('/artists/:artistId', (req, res) => {
     const artistId = parseInt(req.params.artistId);
     const checkArtist = req.unQify.getArtistById(artistId);
-    console.log(req.unQify.observers)
     if(!checkArtist) {
         res.status(404)
         res.json({status: 404, errorCode: 'RESOURCE_NOT_FOUND'})
@@ -18,6 +17,7 @@ artists.post('/artists', (req, res) => {
     console.log(JSON.stringify(req.body))
     try{
             const artist = req.unQify.addArtist(req.body);
+            req.unQify.notifyAllObserversAddArtist(artist);
             req.unQify.save();
             res.status(201).json(artist);
         }catch(e){
