@@ -16,7 +16,7 @@ class NotifyLog {
   }
 
   notifyAddAlbum(artist, album) {
-    this.notify({ message: 'Se agrego el album ' + album.name + 'al artista ' + artist.name, levelMessage: 'info'});
+    this.notify({ message: 'Se agrego el album ' + album.getName() + ' al artista ' + artist.getName(), levelMessage: 'info'});
   }
 
 }

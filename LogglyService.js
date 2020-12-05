@@ -4,6 +4,7 @@ const bodyParse = require('body-parser');
 const port = process.env.PORT || 5002;
 const logging = require('./Clases/Log');
 const loggingInstance = new logging();
+const logRoute = require('./RESTapiLoggly/logRoute')
 
 app.use((req, res, next) => {
     req.logging = loggingInstance;

@@ -1,5 +1,5 @@
 const Activate = require('../RESTapiLoggly/activate');
-const loggly = require('./loggly');
+const loggly = require('../RESTapiLoggly/loggly');
 
 class Logging {
 

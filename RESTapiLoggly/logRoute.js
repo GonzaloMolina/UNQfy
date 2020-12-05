@@ -1,19 +1,16 @@
-const { Router } = require('express');
-const router = Router();
-const Activate = require('./activate');
-const fs = require('fs'); 
-const Log = require('../Clases/Log');
-const log = new Log();
+const express = require('express');
+const log = express();
+const Activate = require('./activate'); 
 
-router.post('/', (req, res) => {
-  log.saveEventLocal(req.body);
-  log.saveEventLoggly(req.body);
+log.post('/log', (req, res) => {
+  req.logging.saveEventLocal(req.body);
+  req.logging.saveEventLoggly(req.body);
   res.status(200);
   res.json(req.body);
 });
 
-router.get('/ping', (req, res) => {
-  res.status(200).json();
+log.get('/ping', (req, res) => {
+  res.status(200).json('PONG');
 });
 
-module.exports = router;
+module.exports = log;

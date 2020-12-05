@@ -14,7 +14,7 @@ class NotifyObserver {
           "message": "Se ha agregado el album " +  album.getName() + " al artista " + artist.getName()               
         },
         json: true // Automatically stringifies the body to JSON
-              };
+    };
       rp(options).then(() => console.log('Se envio con exito a la api notification'))
       .catch(() => console.log('No se envio a la api notification'));
   }

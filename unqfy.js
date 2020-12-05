@@ -19,8 +19,8 @@ const musixMatchClient = require('./ApiClients/MusixMatchClient');
 const instanceOfMusixMatch = new musixMatchClient.MusixMatchClient();
 const NotifyObserver = require('./RESTapiNotify/NotifyObserver');
 const notifyObserver = new NotifyObserver();
-
-const rp = require('request-promise');
+const NotifyLog = require('./RESTapiLoggly/LoggingObserver');
+const notifyLog = new NotifyLog()
 
 
 class UnQify {
@@ -30,8 +30,8 @@ class UnQify {
     this.playlists = [];
     this.counter = new Counter();
     this.observers = [];
-    //this.addObserver(notifyLog);
     this.addObserver(notifyObserver);
+    this.addObserver(notifyLog);
   }
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -390,7 +390,7 @@ class UnQify {
   static load(filename) {
     const serializedData = fs.readFileSync(filename, {encoding: 'utf-8'});
     //COMPLETAR POR EL ALUMNO: Agregar a la lista todas las clases que necesitan ser instanciadas
-    const classes = [UnQify, Artist, Album, Track, Playlist,Counter,NotifyObserver];
+    const classes = [UnQify, Artist, Album, Track, Playlist,Counter,NotifyObserver,NotifyLog];
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
