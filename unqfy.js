@@ -17,6 +17,7 @@ const spotifyClient = require('./ApiClients/SpotifyClient')
 const InstanceOfSpotify = new spotifyClient.SpotifyClient()
 const musixMatchClient = require('./ApiClients/MusixMatchClient');
 const instanceOfMusixMatch = new musixMatchClient.MusixMatchClient();
+const notifyObserver = require('./RESTapiNotify/NotifyObserver');
 
 const rp = require('request-promise');
 
@@ -27,6 +28,9 @@ class UnQify {
     this.artists = [];
     this.playlists = [];
     this.counter = new Counter();
+    this.observers = [];
+    this.addObserver(notifyLog);
+    this.addObserver(notifyObserver);
   }
   // artistData: objeto JS con los datos necesarios para crear un artista
   //   artistData.name (string)
@@ -78,7 +82,6 @@ class UnQify {
     
     const album = new Album(albumData.name, albumData.year);
     album.setId(this.counter.getAlbumId())
-    this.notifyAddAlbum(artist,album)
     return artist.setAlbum(album);
   /* Crea un album y lo agrega al artista con id artistId.
     El objeto album creado debe tener (al menos)):
@@ -354,19 +357,19 @@ class UnQify {
     }
   }
 
-  notifyAddAlbum(artist,album){
-    var options = {
-        method: 'POST',
-        uri: 'http://localhost:5001/api/notify',
-        body: {
-          "artistId" : parseInt(artist.getId()),
-          "subject": "Nuevo Album del artista: " + artist.getName(), 
-          "message": "Se ha agregado el album " +  album.getName() + " al artista " + artist.getName()               
-        },
-        json: true // Automatically stringifies the body to JSON
-              };
-      rp.post(options).then(response => console.log(response))
-}
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
+
+  notifyAllObservers(object) {
+    this.observers.forEach(observer => observer.notify(object));
+  }
+
+  notifyAllObserversAddAlbum(artist, album) {
+    this.observers.forEach(observer => observer.notifyAddAlbum(artist, album));
+  }
+
+
 
 
   getUnQify() {
@@ -393,16 +396,6 @@ class UnQify {
     return picklify.unpicklify(JSON.parse(serializedData), classes);
   }
 
-  subscribe(anUserEmail,anArtistId) {
-    const artist = this.getArtistById(anArtistId);
-    artist.subscribe(anUserEmail);
-
-  }
-
-  unsubscribe(anUserEmail, anArtistId) {
-    const artist = this.getArtistById(anArtistId);
-    artist.unsubscribe(anUserEmail);
-  }
 }
 
 // COMPLETAR POR EL ALUMNO: exportar todas las clases que necesiten ser utilizadas desde un modulo cliente
