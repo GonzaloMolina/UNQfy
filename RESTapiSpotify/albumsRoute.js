@@ -7,6 +7,7 @@ albums.post('/albums', (req, res) => {
     try{        
         const album = { name: req.body.name, year: req.body.year };
         const newAlbum = req.unQify.addAlbum(artistId, album);
+        const artist = req.unQify.getArtistById(artistId)
         req.unQify.notifyAllObserversAddAlbum(artist, newAlbum);
         req.unQify.save();
         res.status(201).json(newAlbum);

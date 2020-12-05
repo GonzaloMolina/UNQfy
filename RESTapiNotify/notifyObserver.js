@@ -17,7 +17,7 @@ class NotifyObserver {
               };
       rp(options).then(() => console.log('Se envio con exito a la api notification'))
       .catch(() => console.log('No se envio a la api notification'));
-      }
+  }
 }
 
 module.exports = NotifyObserver;
