@@ -292,6 +292,7 @@ class UnQify {
 
     tracks.forEach(track => this.deleteTrackInPlaylists(track.getId()));
     artist.deleteAlbum(id);
+    
   }
 
   deleteTrack(id) {
@@ -372,6 +373,14 @@ class UnQify {
 
   notifyAllObserversAddArtist(artist) {
     this.observers.forEach(observer => observer.notifyAddArtist(artist));
+  }
+
+  notifyAllObserversDeleteAlbum(artist, album) {
+    this.observers.forEach(observer => observer.notifyDeleteAlbum(artist, album));
+  }
+
+  notifyAllObserversDeleteArtist(artist) {
+    this.observers.forEach(observer => observer.notifyDeleteArtist(artist));
   }
 
   getUnQify() {

@@ -49,9 +49,11 @@ artists.put('/artists/:artistId', (req, res) => {
 
 artists.delete('/artists/:artistId', (req, res) => {
     const artistId = parseInt(req.params.artistId);
+    const artist = req.unQify.getArtistById(artistId)
+    req.unQify.notifyAllObserversDeleteArtist(artist)
     req.unQify.removeArtist(artistId);
     req.unQify.save();
-    res.status(204).json({ message: `delete artist:${artistId}` });
+    res.status(204).json({ message: "Se borró el artista: " + artist.getName() });
 });
 
 

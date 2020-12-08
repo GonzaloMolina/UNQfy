@@ -22,6 +22,14 @@ class NotifyObserver {
   notifyAddArtist(artist) {
   }
 
+  notifyDeleteAlbum(artist, album){
+
+  }
+
+  notifyDeleteArtist(artist){
+    
+  }
+
 }
 
 module.exports = NotifyObserver;

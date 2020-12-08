@@ -49,9 +49,12 @@ albums.patch('/albums/:albumId', (req, res) => {
 
 albums.delete('/albums/:albumId', (req, res) => {
     const albumId = parseInt(req.params.albumId);
+    const album = req.unQify.getAlbumById(albumId)
+    const artist = req.unQify.getArtistByAlbumId(albumId)
+    req.unQify.notifyAllObserversDeleteAlbum(artist, album)
     req.unQify.deleteAlbum(albumId);
     req.unQify.save();
-    res.status(204).json({ message: `delete album:${albumId}` });
+    res.status(204).json({ message: "Se borró el album: " + album.name });
 });
 
 albums.get('/albums', (req, res) => {

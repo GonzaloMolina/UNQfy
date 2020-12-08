@@ -8,3 +8,6 @@ MENSAJE: Se agrego el artista Gonzalo10 NIVEL: info
 MENSAJE: Se agrego el album Loggly2 al artista Gonza NIVEL: info
 MENSAJE: Se agrego el album Loggly3 al artista Gonza NIVEL: info
 MENSAJE: Se agrego el artista Gonza NIVEL: info
+MENSAJE: Se agregó el album Loggly3 al artista Gonza NIVEL: info
+MENSAJE: Se borró el album Loggly3 del artista Gonza NIVEL: info
+MENSAJE: Se borró el artista Gonza NIVEL: info
