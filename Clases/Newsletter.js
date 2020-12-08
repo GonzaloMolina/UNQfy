@@ -23,8 +23,8 @@ class Newsletter {
     this.subscribers[artistId] = list;
   }
 
-  deleteArtist(artistId) {
-    delete this.subscribers[artistId];
+  deleteSubscribers(artistId) {
+    this.subscribers[artistId] = [];
   }
 
   notify(artistId, subject, message) {
