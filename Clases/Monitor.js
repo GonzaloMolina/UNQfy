@@ -15,17 +15,17 @@ function basicMsg(serviceName, text) {
 }
 
 function notifyServiceIsWorking(serviceName) {
-    sendMessage({ text: basicMsg(serviceName, 'ha vuelvo a la normalidad') });
+    sendMessage({ content: basicMsg(serviceName, 'ha vuelvo a la normalidad') });
 }
 
 function notifyServiceIsNotWorking(serviceName) {
-    sendMessage({ text: basicMsg(serviceName, 'ha dejado de funcionar') });
+    sendMessage({ content: basicMsg(serviceName, 'ha dejado de funcionar') });
 }
 
 function sendMessage(msg) {
-    rp.post({url: url, body: JSON.stringify(msg)})
+    rp.post({ headers: {'Content-type': 'application/json'}, url: url, body: JSON.stringify(msg)})
     .catch(error => {
-        console.log(error.message);
+        console.log(error);
     })     
 }
 
