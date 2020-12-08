@@ -7,6 +7,7 @@ const newsletterInstance= new newsletter();
 const subscribeRoute = require('./RESTapiNotify/subscribeRoute');
 const unsubscribeRoute = require('./RESTapiNotify/unsubscribeRoute');
 const notifyRoute = require('./RESTapiNotify/notifyRoute');
+const subscriptionsRoute = require('./RESTapiNotify/subscriptionsRoute');
 
 app.use((req, res, next) => {
     req.newsletter = newsletterInstance;
@@ -22,7 +23,7 @@ function invalidJson(err, req, res, next) {
 
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(bodyParse.json());
-app.use('/api', subscribeRoute, unsubscribeRoute, notifyRoute);
+app.use('/api', subscribeRoute, unsubscribeRoute, notifyRoute, subscriptionsRoute);
 app.use(invalidJson);
 
 app.use((req,res) => {
