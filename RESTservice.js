@@ -25,6 +25,10 @@ app.use(bodyParse.json());
 app.use('/api', artists, albums, tracks);
 app.use(invalidJson);
 
+app.get('/api/ping', (req, res) => {
+    res.status(200).json("PONG");
+});
+
 app.use((req,res) => {
      res.status(404);
      res.json({status: 404, errorCode: 'RESOURCE_NOT_FOUND'});
