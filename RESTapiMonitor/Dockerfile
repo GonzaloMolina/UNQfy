@@ -24,6 +24,7 @@ EXPOSE 5003
 # Le da permisos al usuario node para escribir en /home/node/my_node_app
 # Como comentario, notar que el comando RUN nos permite ejecutar culquier comando bash valido.
 RUN chown node:users /home/node/
+RUN chmod -R 777 /home/node/
 
 # Habilita el usuario node. Por defecto, los containers corren los comandos con el usuario root
 USER node
@@ -36,7 +37,7 @@ CMD [ "node", "MonitorService.js" ]
 
 
 # Para construir la imagen
-# docker build -t <nombre_de_la_imagen> .
+# docker build -t imagen_monitor .
 
 # Para correr el container
-# docker run -p 5003:5003 --name <nombre_container> --user node <nombre_de_la_imagen>
+# docker run -p 5003:5003 --name container_monitor --user node imagen_monitor
