@@ -15,7 +15,7 @@ function basicMsg(serviceName, text) {
 }
 
 function notifyServiceIsWorking(serviceName) {
-    sendMessage({ content: basicMsg(serviceName, 'ha vuelvo a la normalidad') });
+    sendMessage({ content: basicMsg(serviceName, 'ha vuelto a la normalidad') });
 }
 
 function notifyServiceIsNotWorking(serviceName) {

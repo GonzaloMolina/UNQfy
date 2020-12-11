@@ -17,9 +17,9 @@ const spotifyClient = require('./ApiClients/SpotifyClient')
 const InstanceOfSpotify = new spotifyClient.SpotifyClient()
 const musixMatchClient = require('./ApiClients/MusixMatchClient');
 const instanceOfMusixMatch = new musixMatchClient.MusixMatchClient();
-const NotifyObserver = require('./RESTapiNotify/NotifyObserver');
+const NotifyObserver = require('./RESTapiNotify/notifyObserver');
 const notifyObserver = new NotifyObserver();
-const NotifyLog = require('./RESTapiLoggly/LoggingObserver');
+const NotifyLog = require('./RESTapiLoggly/loggingObserver');
 const notifyLog = new NotifyLog()
 
 
