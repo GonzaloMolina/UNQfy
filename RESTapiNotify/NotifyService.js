@@ -1,13 +1,16 @@
 const express = require('express');
 const app = express();
 const bodyParse = require('body-parser');
-const port = process.env.PORT || 5002;
-const logging = require('./Clases/Log');
-const loggingInstance = new logging();
-const logRoute = require('./RESTapiLoggly/logRoute')
+const port = process.env.PORT || 5001;
+const newsletter= require('../Clases/Newsletter')
+const newsletterInstance= new newsletter();
+const subscribeRoute = require('./subscribeRoute');
+const unsubscribeRoute = require('./unsubscribeRoute');
+const notifyRoute = require('./notifyRoute');
+const subscriptionsRoute = require('./subscriptionsRoute');
 
 app.use((req, res, next) => {
-    req.logging = loggingInstance;
+    req.newsletter = newsletterInstance;
     next();
 });
 
@@ -20,7 +23,7 @@ function invalidJson(err, req, res, next) {
 
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(bodyParse.json());
-app.use('/api', logRoute);
+app.use('/api', subscribeRoute, unsubscribeRoute, notifyRoute, subscriptionsRoute);
 app.use(invalidJson);
 
 app.get('/api/ping', (req, res) => {

@@ -1,6 +1,6 @@
 const express = require('express');
 const notify = express();
-const GmailAPI = require('../GMailAPIClient')
+const GmailAPI = require('./GMailAPIClient')
 const GmailAPIInstance = new GmailAPI();
 const rp = require('request-promise');
 

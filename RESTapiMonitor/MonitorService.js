@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const monitorRoute = require('./RESTapiMonitor/monitorRoute');
-const monitor = require('./RESTapiMonitor/monitor')
+const monitorRoute = require('./monitorRoute');
+const monitor = require('./monitor')
 const port = process.env.PORT || 5003;
 
 app.use((req, res, next) => {
