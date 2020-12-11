@@ -1,5 +1,5 @@
 const rp = require('request-promise');
-const Monitor = require('../Clases/Monitor');
+const Monitor = require('./MonitorMsg');
 let preiodically = true;
 const services = [
     { port: 5000, ip:'localhost', name: 'UNQfy', status: false},

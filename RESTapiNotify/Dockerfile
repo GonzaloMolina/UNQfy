@@ -7,9 +7,9 @@ ENV NODE_ENV=development
 ENV DEBUG=true
 
 # Crea un directorio y nos movemos ahí
-WORKDIR /home/node
+WORKDIR /home/node/RESTapiNotify
 
-ADD . / /home/node/
+ADD . / /home/node/RESTapiNotify/
 
 # Copia el package.json package-lock.json en /home/node/my_node_app
 COPY package.json .
@@ -18,8 +18,8 @@ COPY package-lock.json .
 # Ejecuta npm install. Esto produce que se instalen todas las dependencias necearias para correr la aplicación
 RUN ["npm", "install"]
 
-# Expone el puerto 5000 donde corre la aplicación
-EXPOSE 5000
+# Expone el puerto 5001 donde corre la aplicación
+EXPOSE 5001
 
 # Le da permisos al usuario node para escribir en /home/node/my_node_app
 # Como comentario, notar que el comando RUN nos permite ejecutar culquier comando bash valido.
@@ -30,7 +30,7 @@ USER node
 
 # Comando por defecto si no se provee uno al hacer docker run
 # El comando corre el servicio
-CMD [ "node", "RESTservice.js" ]
+CMD [ "node", "NotifyService.js" ]
 
 # LISTO!
 
@@ -39,4 +39,4 @@ CMD [ "node", "RESTservice.js" ]
 # docker build -t <nombre_de_la_imagen> .
 
 # Para correr el container
-# docker run -p 5000:5000 --name <nombre_container> --user node <nombre_de_la_imagen>
+# docker run -p 5001:5001 --name <nombre_container> --user node <nombre_de_la_imagen>

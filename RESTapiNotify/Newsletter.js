@@ -1,4 +1,4 @@
-const GmailAPI = require('../RESTapiNotify/GMailAPIClient');
+const GmailAPI = require('./GMailAPIClient');
 const GmailAPIInstance = new GmailAPI();
 
 class Newsletter {

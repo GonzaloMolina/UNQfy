@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParse = require('body-parser');
 const port = process.env.PORT || 5002;
-const logging = require('../Clases/Log');
+const logging = require('./Log');
 const loggingInstance = new logging();
 const logRoute = require('./logRoute')
 
