@@ -11,7 +11,7 @@ WORKDIR /home/node
 
 ADD . / /home/node/
 
-# Copia el package.json package-lock.json en /home/node/my_node_app
+# Copia el package.json package-lock.json en /home/node/
 COPY package.json .
 COPY package-lock.json .
 
@@ -29,6 +29,7 @@ RUN chmod -R 777 /home/node/
 # Habilita el usuario node. Por defecto, los containers corren los comandos con el usuario root
 USER node
 
+VOLUME [ "/home/node/" ]
 # Comando por defecto si no se provee uno al hacer docker run
 # El comando corre el servicio
 CMD [ "node", "RESTservice.js" ]
